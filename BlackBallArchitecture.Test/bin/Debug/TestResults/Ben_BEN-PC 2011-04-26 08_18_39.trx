@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="b4deb7a3-71fe-4889-8786-761c17a477ae" name="Ben@BEN-PC 2011-04-26 08:18:39" runUser="Ben-PC\Ben" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="c861506c-41c5-4ad0-9b4f-c0cf5933bb63">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Ben_BEN-PC 2011-04-26 08_18_39" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-04-26T08:18:39.7227323+12:00" queuing="2011-04-26T08:18:40.1077543+12:00" start="2011-04-26T08:18:40.4037713+12:00" finish="2011-04-26T08:18:40.5937821+12:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestMethod1" storage="e:\clients_nobackup\blackballarchitecture\blackballarchitecture.test\bin\debug\blackballarchitecture.test.dll" id="08ea83bd-21a3-bbab-c99e-66895fe4f338">
+      <Execution timeOut="1800000" id="7ae37a2f-8c14-413a-82e0-ddf2e31d9cad" />
+      <TestMethod codeBase="E:/Clients_NoBackup/BlackBallArchitecture/BlackBallArchitecture.Test/bin/Debug/BlackBallArchitecture.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="BlackBallArchitecture.Test.PersonTests, BlackBallArchitecture.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMethod1" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="08ea83bd-21a3-bbab-c99e-66895fe4f338" executionId="7ae37a2f-8c14-413a-82e0-ddf2e31d9cad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="7ae37a2f-8c14-413a-82e0-ddf2e31d9cad" testId="08ea83bd-21a3-bbab-c99e-66895fe4f338" testName="TestMethod1" computerName="BEN-PC" duration="00:00:00.0112084" startTime="2011-04-26T08:18:40.4637747+12:00" endTime="2011-04-26T08:18:40.5257783+12:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ae37a2f-8c14-413a-82e0-ddf2e31d9cad">
+    </UnitTestResult>
+  </Results>
+</TestRun>

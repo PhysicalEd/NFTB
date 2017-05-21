@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<combres xmlns='urn:combres'>
+	<filters>
+		<filter type="Combres.Filters.FixUrlsInCssFilter, Combres" />
+	</filters>
+	<cssMinifiers>
+		<minifier name="yui" type="Combres.Minifiers.YuiCssMinifier, Combres">
+			<param name="CssCompressionType" type="string" value="StockYuiCompressor" />
+			<param name="ColumnWidth" type="int" value="-1" />
+		</minifier>
+	</cssMinifiers>
+	<resourceSets url="~/combres.axd" defaultDebugEnabled="false" defaultIgnorePipelineWhenDebug="true" defaultCompressionEnabled="true" defaultDuration="30" defaultVersion="auto" >
+
+		<resourceSet name="homejs" type="js">
+			<resource path="~/include/js/jquery-1.5.1.min.js" />
+			<resource path="~/include/js/blackball.js" />
+		</resourceSet>
+
+		<resourceSet name="homecss" type="css" minifierRef="yui">
+			<resource path="~/include/css/bw/home.css" />
+		</resourceSet>
+
+	</resourceSets>
+</combres>

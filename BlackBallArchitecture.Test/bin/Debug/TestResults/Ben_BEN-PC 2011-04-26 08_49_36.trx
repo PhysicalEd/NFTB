@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="dcd84293-2ff4-4349-8a51-9b9e0954305b" name="Ben@BEN-PC 2011-04-26 08:49:36" runUser="Ben-PC\Ben" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="c861506c-41c5-4ad0-9b4f-c0cf5933bb63">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Ben_BEN-PC 2011-04-26 08_49_36" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-04-26T08:49:36.4309300+12:00" queuing="2011-04-26T08:49:36.7139461+12:00" start="2011-04-26T08:49:36.9279584+12:00" finish="2011-04-26T08:49:56.7910945+12:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetPersonByID_Success" storage="e:\clients_nobackup\blackballarchitecture\blackballarchitecture.test\bin\debug\blackballarchitecture.test.dll" id="b12d6abb-88c4-db81-de97-7fbfd08b0e4e">
+      <Execution timeOut="1800000" id="b998eb71-f0d8-48eb-86dc-e007c62a60a4" />
+      <TestMethod codeBase="E:/Clients_NoBackup/BlackBallArchitecture/BlackBallArchitecture.Test/bin/Debug/BlackBallArchitecture.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="BlackBallArchitecture.Test.PersonTests, BlackBallArchitecture.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetPersonByID_Success" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="b12d6abb-88c4-db81-de97-7fbfd08b0e4e" executionId="b998eb71-f0d8-48eb-86dc-e007c62a60a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="b998eb71-f0d8-48eb-86dc-e007c62a60a4" testId="b12d6abb-88c4-db81-de97-7fbfd08b0e4e" testName="GetPersonByID_Success" computerName="BEN-PC" duration="00:00:18.9894493" startTime="2011-04-26T08:49:36.9799614+12:00" endTime="2011-04-26T08:49:56.0450518+12:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b998eb71-f0d8-48eb-86dc-e007c62a60a4">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method BlackBallArchitecture.Test.PersonTests.GetPersonByID_Success threw exception: 
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source</Message>
+          <StackTrace>    at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at BlackBallArchitecture.Test.PersonTests.GetPersonByID_Success() in E:\Clients_NoBackup\BlackBallArchitecture\BlackBallArchitecture.Test\PersonTests.cs:line 54
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

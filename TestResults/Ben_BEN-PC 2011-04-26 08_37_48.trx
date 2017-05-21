@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="74d065ef-6979-4999-828f-55e1467c47e9" name="Ben@BEN-PC 2011-04-26 08:37:48" runUser="Ben-PC\Ben" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="c861506c-41c5-4ad0-9b4f-c0cf5933bb63">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Ben_BEN-PC 2011-04-26 08_37_48">
+      <DeploymentItem filename="E:\Clients_NoBackup\BlackBallArchitecture\Lib\Unity\Microsoft.Practices.ObjectBuilder2.dll" />
+      <DeploymentItem filename="E:\Clients_NoBackup\BlackBallArchitecture\Lib\Unity\Microsoft.Practices.Unity.dll" />
+      <DeploymentItem filename="E:\Clients_NoBackup\BlackBallArchitecture\BlackBallArchitecture.Contracts\bin\Debug\BlackBallArchitecture.Contracts.dll" />
+      <DeploymentItem filename="E:\Clients_NoBackup\BlackBallArchitecture\BlackBallArchitecture.Dependency\bin\Debug\BlackBallArchitecture.Dependency.dll" />
+      <DeploymentItem filename="E:\Clients_NoBackup\BlackBallArchitecture\BlackBallArchitecture.Data\bin\Debug\BlackBallArchitecture.Data.dll" />
+      <DeploymentItem filename="E:\Clients_NoBackup\BlackBallArchitecture\Lib\Unity\Microsoft.Practices.Unity.Configuration.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-04-26T08:37:48.4004329+12:00" queuing="2011-04-26T08:37:48.4234342+12:00" start="2011-04-26T08:37:48.4284345+12:00" finish="2011-04-26T08:37:48.8494586+12:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetPersonByID_Success" storage="e:\clients_nobackup\blackballarchitecture\blackballarchitecture.test\bin\debug\blackballarchitecture.test.dll" id="b12d6abb-88c4-db81-de97-7fbfd08b0e4e">
+      <Execution id="f20765ba-52bf-464b-ac10-e8d5fb4bf537" />
+      <TestMethod codeBase="E:/Clients_NoBackup/BlackBallArchitecture/BlackBallArchitecture.Test/bin/Debug/BlackBallArchitecture.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="BlackBallArchitecture.Test.PersonTests, BlackBallArchitecture.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetPersonByID_Success" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="b12d6abb-88c4-db81-de97-7fbfd08b0e4e" executionId="f20765ba-52bf-464b-ac10-e8d5fb4bf537" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="f20765ba-52bf-464b-ac10-e8d5fb4bf537" testId="b12d6abb-88c4-db81-de97-7fbfd08b0e4e" testName="GetPersonByID_Success" computerName="BEN-PC" duration="00:00:00.2565294" startTime="2011-04-26T08:37:48.4304346+12:00" endTime="2011-04-26T08:37:48.8374579+12:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f20765ba-52bf-464b-ac10-e8d5fb4bf537">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method BlackBallArchitecture.Test.PersonTests.GetPersonByID_Success threw exception: 
+Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "BlackBallArchitecture.Contracts.DataManagers.IPersonManager", name = "". Exception message is: The current build operation (build key Build Key[BlackBallArchitecture.Contracts.DataManagers.IPersonManager, null]) failed: The current type, BlackBallArchitecture.Contracts.DataManagers.IPersonManager, is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index 3) ---&gt; Microsoft.Practices.ObjectBuilder2.BuildFailedException: The current build operation (build key Build Key[BlackBallArchitecture.Contracts.DataManagers.IPersonManager, null]) failed: The current type, BlackBallArchitecture.Contracts.DataManagers.IPersonManager, is an interface and cannot be constructed. Are you missing a type mapping? (Strategy type BuildPlanStrategy, index 3) ---&gt; System.InvalidOperationException: The current type, BlackBallArchitecture.Contracts.DataManagers.IPersonManager, is an interface and cannot be constructed. Are you missing a type mapping?</Message>
+          <StackTrace>    at Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   at BuildUp_BlackBallArchitecture.Contracts.DataManagers.IPersonManager(IBuilderContext )
+   at Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   at Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+ --- End of inner exception stack trace ---
+    at Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   at Microsoft.Practices.ObjectBuilder2.Builder.BuildUp(IReadWriteLocator locator, ILifetimeContainer lifetime, IPolicyList policies, IStrategyChain strategies, Object buildKey, Object existing)
+   at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)
+ --- End of inner exception stack trace ---
+    at Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name)
+   at Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name)
+   at Microsoft.Practices.Unity.UnityContainerBase.Resolve[T]()
+   at BlackBallArchitecture.Dependency.Resolve[T]() in E:\Clients_NoBackup\BlackBallArchitecture\BlackBallArchitecture.Dependency\Configure.cs:line 30
+   at BlackBallArchitecture.Test.PersonTests.GetPersonByID_Success() in E:\Clients_NoBackup\BlackBallArchitecture\BlackBallArchitecture.Test\PersonTests.cs:line 50
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

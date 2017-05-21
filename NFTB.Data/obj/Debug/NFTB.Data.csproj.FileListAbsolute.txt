@@ -1,0 +1,17 @@
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Data.dll.config
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Data.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Data.pdb
+D:\Projects\NFTB\NFTB.Data\bin\Debug\EntityFramework.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Contracts.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Dependency.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Contracts.pdb
+D:\Projects\NFTB\NFTB.Data\bin\Debug\NFTB.Dependency.pdb
+D:\Projects\NFTB\NFTB.Data\bin\Debug\EntityFramework.xml
+D:\Projects\NFTB\NFTB.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\NFTB\NFTB.Data\obj\Debug\NFTB.Data.csprojResolveAssemblyReference.cache
+D:\Projects\NFTB\NFTB.Data\obj\Debug\NFTB.Data.dll
+D:\Projects\NFTB\NFTB.Data\obj\Debug\NFTB.Data.pdb

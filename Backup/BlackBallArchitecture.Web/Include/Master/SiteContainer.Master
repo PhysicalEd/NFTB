@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteContainer.master.cs"
+	Inherits="BlackBallArchitecture.Web.Include.Master.SiteContainer" %>
+<!DOCTYPE html>
+<html>
+<head id="Head1" runat="server">
+	<title>BlackBall Architecture Template</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<asp:PlaceHolder runat="server">
+		<link href="<%=Library.GetFullUrl("favicon.ico") %>" rel="shortcut icon" />
+	<%= Combres.WebExtensions.CombresLink("homecss")%>
+	</asp:PlaceHolder>
+	<asp:ContentPlaceHolder ID="Head" runat="server" />
+	<asp:placeholder runat="server" id="PHExtraHeaderContent" />
+	
+</head>
+<body runat="server" id="_body">
+	<form id="form1" runat="server">
+		<asp:ScriptManager runat="server" ID="ScriptMgr" />
+		<div class="body-top-margin">
+			<div class="header-container">
+				<div class="header">
+					<div class="menu-container">
+						<div class="main-menu">
+							<asp:HyperLink ID="BtnHome" runat="server" Text="Home" />
+							<asp:HyperLink ID="BtnHelp" NavigateUrl="http://blog.blackballsoftware.com/2011/04/26/best-practice-architecture-for-professional-microsoft-net-websites" runat="server" Text="Help" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="body-container">
+			<div class="body-container-left">
+			</div>
+			<div class="body-container-right">
+				<div id="postbackprogress">
+					<img id="Img1" runat="server" alt="Loading" src="~/include/css/bw/i/postbackprogress.gif" />
+				</div>
+			</div>
+			<div class="body-container-center">
+				<div id="PHMain" runat="server" class="main">
+					<asp:ContentPlaceHolder ID="Body" runat="server" />
+				</div>
+			</div>
+		</div>
+
+	<%= Combres.WebExtensions.CombresLink("homejs")%>
+	<asp:ContentPlaceHolder runat="server" ID="Footer" />
+
+	</form>
+</body>
+</html>

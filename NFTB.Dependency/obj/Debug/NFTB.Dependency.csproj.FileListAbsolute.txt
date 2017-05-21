@@ -1,0 +1,8 @@
+D:\Projects\NFTB\NFTB.Dependency\bin\Debug\NFTB.Dependency.dll
+D:\Projects\NFTB\NFTB.Dependency\bin\Debug\NFTB.Dependency.pdb
+D:\Projects\NFTB\NFTB.Dependency\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+D:\Projects\NFTB\NFTB.Dependency\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\Projects\NFTB\NFTB.Dependency\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Projects\NFTB\NFTB.Dependency\obj\Debug\NFTB.Dependency.csprojResolveAssemblyReference.cache
+D:\Projects\NFTB\NFTB.Dependency\obj\Debug\NFTB.Dependency.dll
+D:\Projects\NFTB\NFTB.Dependency\obj\Debug\NFTB.Dependency.pdb

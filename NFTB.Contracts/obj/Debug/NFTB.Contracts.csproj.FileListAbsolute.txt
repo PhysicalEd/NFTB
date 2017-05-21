@@ -1,0 +1,10 @@
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\NFTB.Contracts.dll.config
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\NFTB.Contracts.dll
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\NFTB.Contracts.pdb
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\EntityFramework.dll
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\EntityFramework.xml
+D:\Projects\NFTB\NFTB.Contracts\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\NFTB\NFTB.Contracts\obj\Debug\NFTB.Contracts.csprojResolveAssemblyReference.cache
+D:\Projects\NFTB\NFTB.Contracts\obj\Debug\NFTB.Contracts.dll
+D:\Projects\NFTB\NFTB.Contracts\obj\Debug\NFTB.Contracts.pdb
