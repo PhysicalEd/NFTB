@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NFTB.Contracts.Entities.Data;
@@ -5,13 +6,12 @@ using NFTB.Contracts.Entities.Lists;
 
 namespace NFTB.Contracts.DataManagers
 {
-    public partial interface IPersonManager
+    public partial interface ITermManager
     {
         /// <summary>
         /// Saves this person to the data store
         /// </summary>
-        Person SavePerson(int? personID, string email, string firstName, string lastName, string postalAddress, string phone);
+        List<TermSummary> GetTerms();
 
-        PersonList GetPerson(int? personID);
     }
 }

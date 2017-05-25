@@ -87,10 +87,12 @@
     <Compile Include="Cache\ICachable.cs" />
     <Compile Include="Cache\IPersistentStorage.cs" />
     <Compile Include="DataManagers\CodeGen.cs" />
+    <Compile Include="DataManagers\ITermManager.cs" />
     <Compile Include="DataManagers\IPersonManager.cs" />
     <Compile Include="DataManagers\ISystemLogManager.cs" />
     <Compile Include="Entities\Data\CodeGen.cs" />
-    <Compile Include="Entities\Data\Person.cs">
+    <Compile Include="Entities\Data\TermSummary.cs" />
+    <Compile Include="Entities\Data\PersonSummary.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\HTMLContent.cs" />

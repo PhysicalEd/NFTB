@@ -6,7 +6,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 20 May 2017 
+// Code Generation Template developed by Ben Liebert, 23 May 2017 
 namespace NFTB.Data.EF.Database {
 
 	/// <summary>
@@ -54,10 +54,7 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Term>().Property(x => x.TermStart);
 			modelBuilder.Entity<Term>().Property(x => x.TermEnd);
 			modelBuilder.Entity<Term>().Property(x => x.BondAmount);
-			modelBuilder.Entity<Term>().Property(x => x.NumberOfPlayers);
 			modelBuilder.Entity<Term>().Property(x => x.CasualRate);
-			modelBuilder.Entity<Term>().Property(x => x.NumberOfCasuals);
-			modelBuilder.Entity<Term>().Property(x => x.TermAmount);
 			modelBuilder.Entity<Term>().Property(x => x.IncludeOrganizer);
 		
 			// TermCasual
@@ -68,16 +65,16 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<TermCasual>().Property(x => x.PersonID);
 			modelBuilder.Entity<TermCasual>().Property(x => x.Paid);
 		
-			// TermPlayer
-			modelBuilder.Entity<TermPlayer>().HasKey(x => x.TermPlayerID);
-			modelBuilder.Entity<TermPlayer>().ToTable("TermPlayer");
-			modelBuilder.Entity<TermPlayer>().Property(x => x.TermPlayerID);
-			modelBuilder.Entity<TermPlayer>().Property(x => x.TermID);
-			modelBuilder.Entity<TermPlayer>().Property(x => x.PersonID);
-			modelBuilder.Entity<TermPlayer>().Property(x => x.BondPaid);
-			modelBuilder.Entity<TermPlayer>().Property(x => x.TermDue);
-			modelBuilder.Entity<TermPlayer>().Property(x => x.TermOwing);
-			modelBuilder.Entity<TermPlayer>().Property(x => x.Casual);
+			// TermPermanent
+			modelBuilder.Entity<TermPermanent>().HasKey(x => x.TermPermanentID);
+			modelBuilder.Entity<TermPermanent>().ToTable("TermPermanent");
+			modelBuilder.Entity<TermPermanent>().Property(x => x.TermPermanentID);
+			modelBuilder.Entity<TermPermanent>().Property(x => x.TermID);
+			modelBuilder.Entity<TermPermanent>().Property(x => x.PersonID);
+			modelBuilder.Entity<TermPermanent>().Property(x => x.BondPaid);
+			modelBuilder.Entity<TermPermanent>().Property(x => x.TermDue);
+			modelBuilder.Entity<TermPermanent>().Property(x => x.TermOwing);
+			modelBuilder.Entity<TermPermanent>().Property(x => x.Casual);
 		
 		}
 
@@ -166,17 +163,17 @@ namespace NFTB.Data.EF.Database {
         }
 	
 
-        public TermPlayer GetOrCreateTermPlayer(int? TermPlayerID) {
-            if (TermPlayerID.GetValueOrDefault(0) > 0) return this.TermPlayer.FirstOrDefault(x => x.TermPlayerID == TermPlayerID);
-            var newItem = new TermPlayer();
-			this.TermPlayer.AddObject(newItem);
+        public TermPermanent GetOrCreateTermPermanent(int? TermPermanentID) {
+            if (TermPermanentID.GetValueOrDefault(0) > 0) return this.TermPermanent.FirstOrDefault(x => x.TermPermanentID == TermPermanentID);
+            var newItem = new TermPermanent();
+			this.TermPermanent.AddObject(newItem);
             return newItem;
         }
 
-		public IObjectSet<NFTB.Contracts.Entities.Data.TermPlayer> TermPlayer        {
+		public IObjectSet<NFTB.Contracts.Entities.Data.TermPermanent> TermPermanent        {
             get { 
-				return Core.CreateObjectSet<TermPlayer>();
-				// var set = Core.CreateObjectSet<TermPlayer>();
+				return Core.CreateObjectSet<TermPermanent>();
+				// var set = Core.CreateObjectSet<TermPermanent>();
 	            // set.MergeOption = MergeOption.NoTracking;
 	            // return set;
 			}

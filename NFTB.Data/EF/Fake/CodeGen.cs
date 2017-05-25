@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 20 May 2017 
+// Code Generation Template developed by Ben Liebert, 23 May 2017 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>
@@ -21,7 +21,7 @@ namespace NFTB.Data.EF.Fake {
 			this.SystemLogg.Where(x => x.SystemLoggID == 0).ToList().ForEach(x => x.SystemLoggID = this.SystemLogg.Max(y => y.SystemLoggID) + 1);
 			this.Term.Where(x => x.TermID == 0).ToList().ForEach(x => x.TermID = this.Term.Max(y => y.TermID) + 1);
 			this.TermCasual.Where(x => x.TermCasualID == 0).ToList().ForEach(x => x.TermCasualID = this.TermCasual.Max(y => y.TermCasualID) + 1);
-			this.TermPlayer.Where(x => x.TermPlayerID == 0).ToList().ForEach(x => x.TermPlayerID = this.TermPlayer.Max(y => y.TermPlayerID) + 1);
+			this.TermPermanent.Where(x => x.TermPermanentID == 0).ToList().ForEach(x => x.TermPermanentID = this.TermPermanent.Max(y => y.TermPermanentID) + 1);
 		}
     
 		public Person GetOrCreatePerson(int? PersonID) {
@@ -124,23 +124,23 @@ namespace NFTB.Data.EF.Fake {
             }
         }
 	
-		public TermPlayer GetOrCreateTermPlayer(int? TermPlayerID) {
-            TermPlayer item = this.TermPlayer.FirstOrDefault(x => x.TermPlayerID == TermPlayerID);
+		public TermPermanent GetOrCreateTermPermanent(int? TermPermanentID) {
+            TermPermanent item = this.TermPermanent.FirstOrDefault(x => x.TermPermanentID == TermPermanentID);
 			if (item == null){
-				item = new TermPlayer();
-				this.TermPlayer.AddObject(item);
+				item = new TermPermanent();
+				this.TermPermanent.AddObject(item);
 			}
 			return item;
         }
 
-		private IObjectSet<TermPlayer> _TermPlayer = null;
-        public IObjectSet<TermPlayer> TermPlayer {
+		private IObjectSet<TermPermanent> _TermPermanent = null;
+        public IObjectSet<TermPermanent> TermPermanent {
             get {
-                if (_TermPlayer == null) {
-                    var result = new List<TermPlayer>();
-                    _TermPlayer = new FakeObjectSet<TermPlayer>(result);
+                if (_TermPermanent == null) {
+                    var result = new List<TermPermanent>();
+                    _TermPermanent = new FakeObjectSet<TermPermanent>(result);
                 }
-                return _TermPlayer;
+                return _TermPermanent;
             }
         }
 	

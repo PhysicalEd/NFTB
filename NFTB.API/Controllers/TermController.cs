@@ -9,12 +9,12 @@ using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.API.Controllers
 {
-    public class TermController : ApiController
+    public class PersonController : ApiController
     {
         [HttpGet]
-        public List<Term> GetTerms()
+        public List<Person> Index()
         {
-			return Dependency.Resolve<ITermManager>().GetPerson(null);
+			return Dependency.Resolve<IPersonManager>().GetPerson(null);
         }
     }
 }

@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettingsRetriever.cs" />
+    <Compile Include="DataManagers\TermManager.cs" />
     <Compile Include="EntityFrameworkInitializer.cs" />
     <Compile Include="NoLogger.cs" />
     <Compile Include="DatabaseLogger.cs" />

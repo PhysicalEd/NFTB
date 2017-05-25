@@ -13,7 +13,7 @@ using NFTB.Contracts.Enums;
 
 namespace NFTB.Logic.DataManagers
 {
-	public partial class PersonManager
+	public partial class PersonManager : IPersonManager
 	{
 		/// <summary>
 		/// Saves this person to the data store
