@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace NFTB.Contracts.DataManagers
         /// Saves this person to the data store
         /// </summary>
         List<TermSummary> GetTerms();
+
+        TermSummary GetTerm(int termID);
+
+        TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer);
+
 
     }
 }

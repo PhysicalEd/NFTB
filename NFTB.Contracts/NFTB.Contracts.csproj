@@ -91,6 +91,8 @@
     <Compile Include="DataManagers\IPersonManager.cs" />
     <Compile Include="DataManagers\ISystemLogManager.cs" />
     <Compile Include="Entities\Data\CodeGen.cs" />
+    <Compile Include="Entities\Data\CasualPlayerSummary.cs" />
+    <Compile Include="Entities\Data\PermanentPlayerSummary.cs" />
     <Compile Include="Entities\Data\TermSummary.cs" />
     <Compile Include="Entities\Data\PersonSummary.cs">
       <SubType>Code</SubType>

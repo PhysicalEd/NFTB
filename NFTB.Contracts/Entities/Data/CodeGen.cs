@@ -8,7 +8,7 @@ using System.Text;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 23 May 2017 
+// Code Generation Template developed by Ben Liebert, 4 Jun 2017 
 namespace NFTB.Contracts.Entities.Data {
 
 	/// <summary>
@@ -22,6 +22,16 @@ namespace NFTB.Contracts.Entities.Data {
 		public string Phone { get; set; }
 		public string Email { get; set; }
 		public bool IsNew { get { return (this.PersonID == 0); } }
+	}
+		
+	/// <summary>
+	/// Interface of our generic Player object
+	/// </summary>
+	public partial class Player
+	{
+		public int PlayerID { get; set; }
+		public int PersonID { get; set; }
+		public bool IsNew { get { return (this.PlayerID == 0); } }
 	}
 		
 	/// <summary>
@@ -39,25 +49,12 @@ namespace NFTB.Contracts.Entities.Data {
 	}
 		
 	/// <summary>
-	/// Interface of our generic SystemLogg object
-	/// </summary>
-	public partial class SystemLogg
-	{
-		public int SystemLoggID { get; set; }
-		public int? PersonID { get; set; }
-		public DateTime WhenOccurred { get; set; }
-		public string Message { get; set; }
-		public string Details { get; set; }
-		public int SystemLoggTypeID { get; set; }
-		public bool IsNew { get { return (this.SystemLoggID == 0); } }
-	}
-		
-	/// <summary>
 	/// Interface of our generic Term object
 	/// </summary>
 	public partial class Term
 	{
 		public int TermID { get; set; }
+		public string TermName { get; set; }
 		public DateTime TermStart { get; set; }
 		public DateTime? TermEnd { get; set; }
 		public int BondAmount { get; set; }
@@ -89,7 +86,6 @@ namespace NFTB.Contracts.Entities.Data {
 		public bool BondPaid { get; set; }
 		public int? TermDue { get; set; }
 		public int? TermOwing { get; set; }
-		public bool Casual { get; set; }
 		public bool IsNew { get { return (this.TermPermanentID == 0); } }
 	}
 		

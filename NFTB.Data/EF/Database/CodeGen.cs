@@ -6,7 +6,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 23 May 2017 
+// Code Generation Template developed by Ben Liebert, 4 Jun 2017 
 namespace NFTB.Data.EF.Database {
 
 	/// <summary>
@@ -27,6 +27,12 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Person>().Property(x => x.Phone);
 			modelBuilder.Entity<Person>().Property(x => x.Email);
 		
+			// Player
+			modelBuilder.Entity<Player>().HasKey(x => x.PlayerID);
+			modelBuilder.Entity<Player>().ToTable("Player");
+			modelBuilder.Entity<Player>().Property(x => x.PlayerID);
+			modelBuilder.Entity<Player>().Property(x => x.PersonID);
+		
 			// SystemLog
 			modelBuilder.Entity<SystemLog>().HasKey(x => x.SystemLogID);
 			modelBuilder.Entity<SystemLog>().ToTable("SystemLog");
@@ -37,20 +43,11 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<SystemLog>().Property(x => x.Details);
 			modelBuilder.Entity<SystemLog>().Property(x => x.SystemLogTypeID);
 		
-			// SystemLogg
-			modelBuilder.Entity<SystemLogg>().HasKey(x => x.SystemLoggID);
-			modelBuilder.Entity<SystemLogg>().ToTable("SystemLogg");
-			modelBuilder.Entity<SystemLogg>().Property(x => x.SystemLoggID);
-			modelBuilder.Entity<SystemLogg>().Property(x => x.PersonID);
-			modelBuilder.Entity<SystemLogg>().Property(x => x.WhenOccurred);
-			modelBuilder.Entity<SystemLogg>().Property(x => x.Message);
-			modelBuilder.Entity<SystemLogg>().Property(x => x.Details);
-			modelBuilder.Entity<SystemLogg>().Property(x => x.SystemLoggTypeID);
-		
 			// Term
 			modelBuilder.Entity<Term>().HasKey(x => x.TermID);
 			modelBuilder.Entity<Term>().ToTable("Term");
 			modelBuilder.Entity<Term>().Property(x => x.TermID);
+			modelBuilder.Entity<Term>().Property(x => x.TermName);
 			modelBuilder.Entity<Term>().Property(x => x.TermStart);
 			modelBuilder.Entity<Term>().Property(x => x.TermEnd);
 			modelBuilder.Entity<Term>().Property(x => x.BondAmount);
@@ -74,7 +71,6 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<TermPermanent>().Property(x => x.BondPaid);
 			modelBuilder.Entity<TermPermanent>().Property(x => x.TermDue);
 			modelBuilder.Entity<TermPermanent>().Property(x => x.TermOwing);
-			modelBuilder.Entity<TermPermanent>().Property(x => x.Casual);
 		
 		}
 
@@ -95,6 +91,23 @@ namespace NFTB.Data.EF.Database {
         }
 	
 
+        public Player GetOrCreatePlayer(int? PlayerID) {
+            if (PlayerID.GetValueOrDefault(0) > 0) return this.Player.FirstOrDefault(x => x.PlayerID == PlayerID);
+            var newItem = new Player();
+			this.Player.AddObject(newItem);
+            return newItem;
+        }
+
+		public IObjectSet<NFTB.Contracts.Entities.Data.Player> Player        {
+            get { 
+				return Core.CreateObjectSet<Player>();
+				// var set = Core.CreateObjectSet<Player>();
+	            // set.MergeOption = MergeOption.NoTracking;
+	            // return set;
+			}
+        }
+	
+
         public SystemLog GetOrCreateSystemLog(int? SystemLogID) {
             if (SystemLogID.GetValueOrDefault(0) > 0) return this.SystemLog.FirstOrDefault(x => x.SystemLogID == SystemLogID);
             var newItem = new SystemLog();
@@ -106,23 +119,6 @@ namespace NFTB.Data.EF.Database {
             get { 
 				return Core.CreateObjectSet<SystemLog>();
 				// var set = Core.CreateObjectSet<SystemLog>();
-	            // set.MergeOption = MergeOption.NoTracking;
-	            // return set;
-			}
-        }
-	
-
-        public SystemLogg GetOrCreateSystemLogg(int? SystemLoggID) {
-            if (SystemLoggID.GetValueOrDefault(0) > 0) return this.SystemLogg.FirstOrDefault(x => x.SystemLoggID == SystemLoggID);
-            var newItem = new SystemLogg();
-			this.SystemLogg.AddObject(newItem);
-            return newItem;
-        }
-
-		public IObjectSet<NFTB.Contracts.Entities.Data.SystemLogg> SystemLogg        {
-            get { 
-				return Core.CreateObjectSet<SystemLogg>();
-				// var set = Core.CreateObjectSet<SystemLogg>();
 	            // set.MergeOption = MergeOption.NoTracking;
 	            // return set;
 			}

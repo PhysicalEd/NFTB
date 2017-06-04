@@ -8,6 +8,7 @@ namespace NFTB.Contracts.Entities.Data
 	public class TermSummary
 	{
         public int TermID { get; set; }
+        public string Name { get; set; }
         public DateTime TermStart { get; set; }
         public DateTime? TermEnd { get; set; }
         public int BondAmount { get; set; }

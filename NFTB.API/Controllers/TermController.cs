@@ -9,12 +9,18 @@ using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.API.Controllers
 {
-    public class PersonController : ApiController
+    public class TermController : ApiController
     {
         [HttpGet]
-        public List<Person> Index()
+        public List<TermSummary> TermList()
         {
-			return Dependency.Resolve<IPersonManager>().GetPerson(null);
+			return Dependency.Resolve<ITermManager>().GetTerms();
+        }
+
+        [HttpGet]
+        public TermSummary TermEditor(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer)
+        {
+            return Dependency.Resolve<ITermManager>().SaveTerm(termID, termName, termStart, termEnd, bondAmount, casualRate, includeOrganizer);
         }
     }
 }

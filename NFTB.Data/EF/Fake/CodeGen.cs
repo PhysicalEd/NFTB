@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 23 May 2017 
+// Code Generation Template developed by Ben Liebert, 4 Jun 2017 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>
@@ -17,8 +17,8 @@ namespace NFTB.Data.EF.Fake {
 		private void CreateIdentityvalues()
 		{
 			this.Person.Where(x => x.PersonID == 0).ToList().ForEach(x => x.PersonID = this.Person.Max(y => y.PersonID) + 1);
+			this.Player.Where(x => x.PlayerID == 0).ToList().ForEach(x => x.PlayerID = this.Player.Max(y => y.PlayerID) + 1);
 			this.SystemLog.Where(x => x.SystemLogID == 0).ToList().ForEach(x => x.SystemLogID = this.SystemLog.Max(y => y.SystemLogID) + 1);
-			this.SystemLogg.Where(x => x.SystemLoggID == 0).ToList().ForEach(x => x.SystemLoggID = this.SystemLogg.Max(y => y.SystemLoggID) + 1);
 			this.Term.Where(x => x.TermID == 0).ToList().ForEach(x => x.TermID = this.Term.Max(y => y.TermID) + 1);
 			this.TermCasual.Where(x => x.TermCasualID == 0).ToList().ForEach(x => x.TermCasualID = this.TermCasual.Max(y => y.TermCasualID) + 1);
 			this.TermPermanent.Where(x => x.TermPermanentID == 0).ToList().ForEach(x => x.TermPermanentID = this.TermPermanent.Max(y => y.TermPermanentID) + 1);
@@ -44,6 +44,26 @@ namespace NFTB.Data.EF.Fake {
             }
         }
 	
+		public Player GetOrCreatePlayer(int? PlayerID) {
+            Player item = this.Player.FirstOrDefault(x => x.PlayerID == PlayerID);
+			if (item == null){
+				item = new Player();
+				this.Player.AddObject(item);
+			}
+			return item;
+        }
+
+		private IObjectSet<Player> _Player = null;
+        public IObjectSet<Player> Player {
+            get {
+                if (_Player == null) {
+                    var result = new List<Player>();
+                    _Player = new FakeObjectSet<Player>(result);
+                }
+                return _Player;
+            }
+        }
+	
 		public SystemLog GetOrCreateSystemLog(int? SystemLogID) {
             SystemLog item = this.SystemLog.FirstOrDefault(x => x.SystemLogID == SystemLogID);
 			if (item == null){
@@ -61,26 +81,6 @@ namespace NFTB.Data.EF.Fake {
                     _SystemLog = new FakeObjectSet<SystemLog>(result);
                 }
                 return _SystemLog;
-            }
-        }
-	
-		public SystemLogg GetOrCreateSystemLogg(int? SystemLoggID) {
-            SystemLogg item = this.SystemLogg.FirstOrDefault(x => x.SystemLoggID == SystemLoggID);
-			if (item == null){
-				item = new SystemLogg();
-				this.SystemLogg.AddObject(item);
-			}
-			return item;
-        }
-
-		private IObjectSet<SystemLogg> _SystemLogg = null;
-        public IObjectSet<SystemLogg> SystemLogg {
-            get {
-                if (_SystemLogg == null) {
-                    var result = new List<SystemLogg>();
-                    _SystemLogg = new FakeObjectSet<SystemLogg>(result);
-                }
-                return _SystemLogg;
             }
         }
 	
