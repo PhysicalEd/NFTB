@@ -22,5 +22,11 @@ namespace NFTB.API.Controllers
         {
             return Dependency.Resolve<ITermManager>().SaveTerm(termID, termName, termStart, termEnd, bondAmount, casualRate, includeOrganizer);
         }
+
+        [HttpGet]
+        public void DeleteTerm(int? termID)
+        {
+            Dependency.Resolve<ITermManager>().DeleteTerm(termID);
+        }
     }
 }

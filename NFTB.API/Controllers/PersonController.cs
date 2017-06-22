@@ -24,20 +24,20 @@ namespace NFTB.API.Controllers
             var personMgr = Dependency.Resolve<IPersonManager>();
             var model = new PlayerListModel();
 
-            model.CasualPlayers = new List<CasualPlayerSummary>()
+            model.CasualPlayers = new List<TermCasualPlayerSummary>()
             {
-                new CasualPlayerSummary()
+                new TermCasualPlayerSummary()
                 {
-                    CasualPlayerID = 1,
+                    TermCasualPlayerID = 1,
                     HasPaid = true
                 }
             };
 
-            model.PermanentPlayers = new List<PermanentPlayerSummary>()
+            model.PermanentPlayers = new List<TermPermanentPlayerSummary>()
             {
-                new PermanentPlayerSummary()
+                new TermPermanentPlayerSummary()
                 {
-                    TermPlayerID = 1,
+                    TermPermanentPlayerID = 1,
                     BondPaid = 100
                 }
             };

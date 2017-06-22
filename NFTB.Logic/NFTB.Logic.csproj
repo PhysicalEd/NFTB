@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettingsRetriever.cs" />
+    <Compile Include="DataManagers\AttendanceManager.cs" />
+    <Compile Include="DataManagers\PlayerManager.cs" />
     <Compile Include="DataManagers\TermManager.cs" />
     <Compile Include="EntityFrameworkInitializer.cs" />
     <Compile Include="NoLogger.cs" />

@@ -127,10 +127,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\TermController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AttendanceEditorModel.cs" />
+    <Compile Include="Models\AttendanceListModel.cs" />
     <Compile Include="Models\TermListModel.cs" />
     <Compile Include="Models\PlayerListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

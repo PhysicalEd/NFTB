@@ -87,12 +87,16 @@
     <Compile Include="Cache\ICachable.cs" />
     <Compile Include="Cache\IPersistentStorage.cs" />
     <Compile Include="DataManagers\CodeGen.cs" />
+    <Compile Include="DataManagers\IAttendanceManager.cs" />
+    <Compile Include="DataManagers\IPlayerManager.cs" />
     <Compile Include="DataManagers\ITermManager.cs" />
     <Compile Include="DataManagers\IPersonManager.cs" />
     <Compile Include="DataManagers\ISystemLogManager.cs" />
     <Compile Include="Entities\Data\CodeGen.cs" />
-    <Compile Include="Entities\Data\CasualPlayerSummary.cs" />
-    <Compile Include="Entities\Data\PermanentPlayerSummary.cs" />
+    <Compile Include="Entities\Data\TermCasualPlayerSummary.cs" />
+    <Compile Include="Entities\Data\PlayerSummary.cs" />
+    <Compile Include="Entities\Data\TermPermanentPlayerSummary.cs" />
+    <Compile Include="Entities\Data\AttendanceSummary.cs" />
     <Compile Include="Entities\Data\TermSummary.cs" />
     <Compile Include="Entities\Data\PersonSummary.cs">
       <SubType>Code</SubType>

@@ -6,7 +6,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 4 Jun 2017 
+// Code Generation Template developed by Ben Liebert, 10 Jun 2017 
 namespace NFTB.Data.EF.Database {
 
 	/// <summary>
@@ -18,6 +18,14 @@ namespace NFTB.Data.EF.Database {
 		private void LoadTables(DbModelBuilder modelBuilder)
 		{
 
+			// Attendance
+			modelBuilder.Entity<Attendance>().HasKey(x => x.AttendanceID);
+			modelBuilder.Entity<Attendance>().ToTable("Attendance");
+			modelBuilder.Entity<Attendance>().Property(x => x.AttendanceID);
+			modelBuilder.Entity<Attendance>().Property(x => x.TermID);
+			modelBuilder.Entity<Attendance>().Property(x => x.PlayerID);
+			modelBuilder.Entity<Attendance>().Property(x => x.DateAttended);
+		
 			// Person
 			modelBuilder.Entity<Person>().HasKey(x => x.PersonID);
 			modelBuilder.Entity<Person>().ToTable("Person");
@@ -53,26 +61,44 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Term>().Property(x => x.BondAmount);
 			modelBuilder.Entity<Term>().Property(x => x.CasualRate);
 			modelBuilder.Entity<Term>().Property(x => x.IncludeOrganizer);
+			modelBuilder.Entity<Term>().Property(x => x.IsDeleted);
 		
-			// TermCasual
-			modelBuilder.Entity<TermCasual>().HasKey(x => x.TermCasualID);
-			modelBuilder.Entity<TermCasual>().ToTable("TermCasual");
-			modelBuilder.Entity<TermCasual>().Property(x => x.TermCasualID);
-			modelBuilder.Entity<TermCasual>().Property(x => x.TermID);
-			modelBuilder.Entity<TermCasual>().Property(x => x.PersonID);
-			modelBuilder.Entity<TermCasual>().Property(x => x.Paid);
+			// TermCasualPlayer
+			modelBuilder.Entity<TermCasualPlayer>().HasKey(x => x.TermCasualPlayerID);
+			modelBuilder.Entity<TermCasualPlayer>().ToTable("TermCasualPlayer");
+			modelBuilder.Entity<TermCasualPlayer>().Property(x => x.TermCasualPlayerID);
+			modelBuilder.Entity<TermCasualPlayer>().Property(x => x.TermID);
+			modelBuilder.Entity<TermCasualPlayer>().Property(x => x.PlayerID);
+			modelBuilder.Entity<TermCasualPlayer>().Property(x => x.Paid);
 		
-			// TermPermanent
-			modelBuilder.Entity<TermPermanent>().HasKey(x => x.TermPermanentID);
-			modelBuilder.Entity<TermPermanent>().ToTable("TermPermanent");
-			modelBuilder.Entity<TermPermanent>().Property(x => x.TermPermanentID);
-			modelBuilder.Entity<TermPermanent>().Property(x => x.TermID);
-			modelBuilder.Entity<TermPermanent>().Property(x => x.PersonID);
-			modelBuilder.Entity<TermPermanent>().Property(x => x.BondPaid);
-			modelBuilder.Entity<TermPermanent>().Property(x => x.TermDue);
-			modelBuilder.Entity<TermPermanent>().Property(x => x.TermOwing);
+			// TermPermanentPlayer
+			modelBuilder.Entity<TermPermanentPlayer>().HasKey(x => x.TermPermanentPlayerID);
+			modelBuilder.Entity<TermPermanentPlayer>().ToTable("TermPermanentPlayer");
+			modelBuilder.Entity<TermPermanentPlayer>().Property(x => x.TermPermanentPlayerID);
+			modelBuilder.Entity<TermPermanentPlayer>().Property(x => x.TermID);
+			modelBuilder.Entity<TermPermanentPlayer>().Property(x => x.PlayerID);
+			modelBuilder.Entity<TermPermanentPlayer>().Property(x => x.BondPaid);
+			modelBuilder.Entity<TermPermanentPlayer>().Property(x => x.TermDue);
+			modelBuilder.Entity<TermPermanentPlayer>().Property(x => x.TermOwing);
 		
 		}
+
+        public Attendance GetOrCreateAttendance(int? AttendanceID) {
+            if (AttendanceID.GetValueOrDefault(0) > 0) return this.Attendance.FirstOrDefault(x => x.AttendanceID == AttendanceID);
+            var newItem = new Attendance();
+			this.Attendance.AddObject(newItem);
+            return newItem;
+        }
+
+		public IObjectSet<NFTB.Contracts.Entities.Data.Attendance> Attendance        {
+            get { 
+				return Core.CreateObjectSet<Attendance>();
+				// var set = Core.CreateObjectSet<Attendance>();
+	            // set.MergeOption = MergeOption.NoTracking;
+	            // return set;
+			}
+        }
+	
 
         public Person GetOrCreatePerson(int? PersonID) {
             if (PersonID.GetValueOrDefault(0) > 0) return this.Person.FirstOrDefault(x => x.PersonID == PersonID);
@@ -142,34 +168,34 @@ namespace NFTB.Data.EF.Database {
         }
 	
 
-        public TermCasual GetOrCreateTermCasual(int? TermCasualID) {
-            if (TermCasualID.GetValueOrDefault(0) > 0) return this.TermCasual.FirstOrDefault(x => x.TermCasualID == TermCasualID);
-            var newItem = new TermCasual();
-			this.TermCasual.AddObject(newItem);
+        public TermCasualPlayer GetOrCreateTermCasualPlayer(int? TermCasualPlayerID) {
+            if (TermCasualPlayerID.GetValueOrDefault(0) > 0) return this.TermCasualPlayer.FirstOrDefault(x => x.TermCasualPlayerID == TermCasualPlayerID);
+            var newItem = new TermCasualPlayer();
+			this.TermCasualPlayer.AddObject(newItem);
             return newItem;
         }
 
-		public IObjectSet<NFTB.Contracts.Entities.Data.TermCasual> TermCasual        {
+		public IObjectSet<NFTB.Contracts.Entities.Data.TermCasualPlayer> TermCasualPlayer        {
             get { 
-				return Core.CreateObjectSet<TermCasual>();
-				// var set = Core.CreateObjectSet<TermCasual>();
+				return Core.CreateObjectSet<TermCasualPlayer>();
+				// var set = Core.CreateObjectSet<TermCasualPlayer>();
 	            // set.MergeOption = MergeOption.NoTracking;
 	            // return set;
 			}
         }
 	
 
-        public TermPermanent GetOrCreateTermPermanent(int? TermPermanentID) {
-            if (TermPermanentID.GetValueOrDefault(0) > 0) return this.TermPermanent.FirstOrDefault(x => x.TermPermanentID == TermPermanentID);
-            var newItem = new TermPermanent();
-			this.TermPermanent.AddObject(newItem);
+        public TermPermanentPlayer GetOrCreateTermPermanentPlayer(int? TermPermanentPlayerID) {
+            if (TermPermanentPlayerID.GetValueOrDefault(0) > 0) return this.TermPermanentPlayer.FirstOrDefault(x => x.TermPermanentPlayerID == TermPermanentPlayerID);
+            var newItem = new TermPermanentPlayer();
+			this.TermPermanentPlayer.AddObject(newItem);
             return newItem;
         }
 
-		public IObjectSet<NFTB.Contracts.Entities.Data.TermPermanent> TermPermanent        {
+		public IObjectSet<NFTB.Contracts.Entities.Data.TermPermanentPlayer> TermPermanentPlayer        {
             get { 
-				return Core.CreateObjectSet<TermPermanent>();
-				// var set = Core.CreateObjectSet<TermPermanent>();
+				return Core.CreateObjectSet<TermPermanentPlayer>();
+				// var set = Core.CreateObjectSet<TermPermanentPlayer>();
 	            // set.MergeOption = MergeOption.NoTracking;
 	            // return set;
 			}

@@ -17,6 +17,7 @@ namespace NFTB.Contracts.DataManagers
         TermSummary GetTerm(int termID);
 
         TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer);
+        void DeleteTerm(int? termID);
 
 
     }

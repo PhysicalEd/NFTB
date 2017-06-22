@@ -7,8 +7,8 @@ namespace NFTB.API.Models
 {
     public class PlayerListModel
     {
-        public List<CasualPlayerSummary> CasualPlayers { get; set; }
-        public List<PermanentPlayerSummary> PermanentPlayers { get; set; }
+        public List<TermCasualPlayerSummary> CasualPlayers { get; set; }
+        public List<TermPermanentPlayerSummary> PermanentPlayers { get; set; }
 
     }
 }

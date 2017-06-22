@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 4 Jun 2017 
+// Code Generation Template developed by Ben Liebert, 10 Jun 2017 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>
@@ -16,14 +16,35 @@ namespace NFTB.Data.EF.Fake {
 
 		private void CreateIdentityvalues()
 		{
+			this.Attendance.Where(x => x.AttendanceID == 0).ToList().ForEach(x => x.AttendanceID = this.Attendance.Max(y => y.AttendanceID) + 1);
 			this.Person.Where(x => x.PersonID == 0).ToList().ForEach(x => x.PersonID = this.Person.Max(y => y.PersonID) + 1);
 			this.Player.Where(x => x.PlayerID == 0).ToList().ForEach(x => x.PlayerID = this.Player.Max(y => y.PlayerID) + 1);
 			this.SystemLog.Where(x => x.SystemLogID == 0).ToList().ForEach(x => x.SystemLogID = this.SystemLog.Max(y => y.SystemLogID) + 1);
 			this.Term.Where(x => x.TermID == 0).ToList().ForEach(x => x.TermID = this.Term.Max(y => y.TermID) + 1);
-			this.TermCasual.Where(x => x.TermCasualID == 0).ToList().ForEach(x => x.TermCasualID = this.TermCasual.Max(y => y.TermCasualID) + 1);
-			this.TermPermanent.Where(x => x.TermPermanentID == 0).ToList().ForEach(x => x.TermPermanentID = this.TermPermanent.Max(y => y.TermPermanentID) + 1);
+			this.TermCasualPlayer.Where(x => x.TermCasualPlayerID == 0).ToList().ForEach(x => x.TermCasualPlayerID = this.TermCasualPlayer.Max(y => y.TermCasualPlayerID) + 1);
+			this.TermPermanentPlayer.Where(x => x.TermPermanentPlayerID == 0).ToList().ForEach(x => x.TermPermanentPlayerID = this.TermPermanentPlayer.Max(y => y.TermPermanentPlayerID) + 1);
 		}
     
+		public Attendance GetOrCreateAttendance(int? AttendanceID) {
+            Attendance item = this.Attendance.FirstOrDefault(x => x.AttendanceID == AttendanceID);
+			if (item == null){
+				item = new Attendance();
+				this.Attendance.AddObject(item);
+			}
+			return item;
+        }
+
+		private IObjectSet<Attendance> _Attendance = null;
+        public IObjectSet<Attendance> Attendance {
+            get {
+                if (_Attendance == null) {
+                    var result = new List<Attendance>();
+                    _Attendance = new FakeObjectSet<Attendance>(result);
+                }
+                return _Attendance;
+            }
+        }
+	
 		public Person GetOrCreatePerson(int? PersonID) {
             Person item = this.Person.FirstOrDefault(x => x.PersonID == PersonID);
 			if (item == null){
@@ -104,43 +125,43 @@ namespace NFTB.Data.EF.Fake {
             }
         }
 	
-		public TermCasual GetOrCreateTermCasual(int? TermCasualID) {
-            TermCasual item = this.TermCasual.FirstOrDefault(x => x.TermCasualID == TermCasualID);
+		public TermCasualPlayer GetOrCreateTermCasualPlayer(int? TermCasualPlayerID) {
+            TermCasualPlayer item = this.TermCasualPlayer.FirstOrDefault(x => x.TermCasualPlayerID == TermCasualPlayerID);
 			if (item == null){
-				item = new TermCasual();
-				this.TermCasual.AddObject(item);
+				item = new TermCasualPlayer();
+				this.TermCasualPlayer.AddObject(item);
 			}
 			return item;
         }
 
-		private IObjectSet<TermCasual> _TermCasual = null;
-        public IObjectSet<TermCasual> TermCasual {
+		private IObjectSet<TermCasualPlayer> _TermCasualPlayer = null;
+        public IObjectSet<TermCasualPlayer> TermCasualPlayer {
             get {
-                if (_TermCasual == null) {
-                    var result = new List<TermCasual>();
-                    _TermCasual = new FakeObjectSet<TermCasual>(result);
+                if (_TermCasualPlayer == null) {
+                    var result = new List<TermCasualPlayer>();
+                    _TermCasualPlayer = new FakeObjectSet<TermCasualPlayer>(result);
                 }
-                return _TermCasual;
+                return _TermCasualPlayer;
             }
         }
 	
-		public TermPermanent GetOrCreateTermPermanent(int? TermPermanentID) {
-            TermPermanent item = this.TermPermanent.FirstOrDefault(x => x.TermPermanentID == TermPermanentID);
+		public TermPermanentPlayer GetOrCreateTermPermanentPlayer(int? TermPermanentPlayerID) {
+            TermPermanentPlayer item = this.TermPermanentPlayer.FirstOrDefault(x => x.TermPermanentPlayerID == TermPermanentPlayerID);
 			if (item == null){
-				item = new TermPermanent();
-				this.TermPermanent.AddObject(item);
+				item = new TermPermanentPlayer();
+				this.TermPermanentPlayer.AddObject(item);
 			}
 			return item;
         }
 
-		private IObjectSet<TermPermanent> _TermPermanent = null;
-        public IObjectSet<TermPermanent> TermPermanent {
+		private IObjectSet<TermPermanentPlayer> _TermPermanentPlayer = null;
+        public IObjectSet<TermPermanentPlayer> TermPermanentPlayer {
             get {
-                if (_TermPermanent == null) {
-                    var result = new List<TermPermanent>();
-                    _TermPermanent = new FakeObjectSet<TermPermanent>(result);
+                if (_TermPermanentPlayer == null) {
+                    var result = new List<TermPermanentPlayer>();
+                    _TermPermanentPlayer = new FakeObjectSet<TermPermanentPlayer>(result);
                 }
-                return _TermPermanent;
+                return _TermPermanentPlayer;
             }
         }
 	

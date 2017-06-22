@@ -5,19 +5,10 @@ using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.API.Models
 {
-    public class TermDetailModel
+    public class AttendanceListModel
     {
         public List<TermCasualPlayerSummary> CasualPlayers { get; set; }
         public List<TermPermanentPlayerSummary> PermanentPlayers { get; set; }
 
-        public int NumberOfCasuals
-        {
-            get { return this.CasualPlayers.Count; }
-        }
-
-        public int NumberOfPerms
-        {
-            get { return this.PermanentPlayers.Count; }
-        }
     }
 }

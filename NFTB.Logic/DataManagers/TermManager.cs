@@ -62,5 +62,20 @@ namespace NFTB.Logic.DataManagers
             }
 
         }
+
+        public void DeleteTerm(int? termID)
+        {
+            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            {
+                var term = (from t in cxt.Term
+                            where t.TermID == termID
+                            select t
+                    ).FirstOrDefault();
+                if (term == null) return;
+                term.IsDeleted = true;
+                cxt.SubmitChanges();
+            }
+
+        }
     }
 }
