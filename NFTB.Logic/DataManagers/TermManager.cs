@@ -17,7 +17,7 @@ namespace NFTB.Logic.DataManagers
 {
 	public partial class TermManager : ITermManager
 	{
-	    public List<TermSummary> GetTerms()
+	    public List<TermSummary> GetTerms(bool? includeDeleted)
 	    {
 	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
 	        {
@@ -31,16 +31,21 @@ namespace NFTB.Logic.DataManagers
                             CasualRate = term.CasualRate,
                             IncludeOrganizer = term.IncludeOrganizer,
                             TermStart = term.TermStart,
-                            TermEnd = term.TermEnd
+                            TermEnd = term.TermEnd,
+                            IsDeleted = term.IsDeleted
                         }
                     );
+
+                // Filters
+                if (includeDeleted.HasValue && includeDeleted == false) data = data.Where(x => x.IsDeleted == false);
+
 	            return data.ToList();
 	        }
 	    }
 
 	    public TermSummary GetTerm(int termID)
 	    {
-	        return this.GetTerms().FirstOrDefault(x=>x.TermID == termID);
+	        return this.GetTerms(true).FirstOrDefault(x=>x.TermID == termID);
 	    }
 
         public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer)

@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 10 Jun 2017 
+// Code Generation Template developed by Ben Liebert, 2 Jul 2017 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>
@@ -19,10 +19,10 @@ namespace NFTB.Data.EF.Fake {
 			this.Attendance.Where(x => x.AttendanceID == 0).ToList().ForEach(x => x.AttendanceID = this.Attendance.Max(y => y.AttendanceID) + 1);
 			this.Person.Where(x => x.PersonID == 0).ToList().ForEach(x => x.PersonID = this.Person.Max(y => y.PersonID) + 1);
 			this.Player.Where(x => x.PlayerID == 0).ToList().ForEach(x => x.PlayerID = this.Player.Max(y => y.PlayerID) + 1);
+			this.PlayerAttendance.Where(x => x.PlayerAttendanceID == 0).ToList().ForEach(x => x.PlayerAttendanceID = this.PlayerAttendance.Max(y => y.PlayerAttendanceID) + 1);
 			this.SystemLog.Where(x => x.SystemLogID == 0).ToList().ForEach(x => x.SystemLogID = this.SystemLog.Max(y => y.SystemLogID) + 1);
 			this.Term.Where(x => x.TermID == 0).ToList().ForEach(x => x.TermID = this.Term.Max(y => y.TermID) + 1);
-			this.TermCasualPlayer.Where(x => x.TermCasualPlayerID == 0).ToList().ForEach(x => x.TermCasualPlayerID = this.TermCasualPlayer.Max(y => y.TermCasualPlayerID) + 1);
-			this.TermPermanentPlayer.Where(x => x.TermPermanentPlayerID == 0).ToList().ForEach(x => x.TermPermanentPlayerID = this.TermPermanentPlayer.Max(y => y.TermPermanentPlayerID) + 1);
+			this.TermPlayer.Where(x => x.TermPlayerID == 0).ToList().ForEach(x => x.TermPlayerID = this.TermPlayer.Max(y => y.TermPlayerID) + 1);
 		}
     
 		public Attendance GetOrCreateAttendance(int? AttendanceID) {
@@ -85,6 +85,26 @@ namespace NFTB.Data.EF.Fake {
             }
         }
 	
+		public PlayerAttendance GetOrCreatePlayerAttendance(int? PlayerAttendanceID) {
+            PlayerAttendance item = this.PlayerAttendance.FirstOrDefault(x => x.PlayerAttendanceID == PlayerAttendanceID);
+			if (item == null){
+				item = new PlayerAttendance();
+				this.PlayerAttendance.AddObject(item);
+			}
+			return item;
+        }
+
+		private IObjectSet<PlayerAttendance> _PlayerAttendance = null;
+        public IObjectSet<PlayerAttendance> PlayerAttendance {
+            get {
+                if (_PlayerAttendance == null) {
+                    var result = new List<PlayerAttendance>();
+                    _PlayerAttendance = new FakeObjectSet<PlayerAttendance>(result);
+                }
+                return _PlayerAttendance;
+            }
+        }
+	
 		public SystemLog GetOrCreateSystemLog(int? SystemLogID) {
             SystemLog item = this.SystemLog.FirstOrDefault(x => x.SystemLogID == SystemLogID);
 			if (item == null){
@@ -125,43 +145,23 @@ namespace NFTB.Data.EF.Fake {
             }
         }
 	
-		public TermCasualPlayer GetOrCreateTermCasualPlayer(int? TermCasualPlayerID) {
-            TermCasualPlayer item = this.TermCasualPlayer.FirstOrDefault(x => x.TermCasualPlayerID == TermCasualPlayerID);
+		public TermPlayer GetOrCreateTermPlayer(int? TermPlayerID) {
+            TermPlayer item = this.TermPlayer.FirstOrDefault(x => x.TermPlayerID == TermPlayerID);
 			if (item == null){
-				item = new TermCasualPlayer();
-				this.TermCasualPlayer.AddObject(item);
+				item = new TermPlayer();
+				this.TermPlayer.AddObject(item);
 			}
 			return item;
         }
 
-		private IObjectSet<TermCasualPlayer> _TermCasualPlayer = null;
-        public IObjectSet<TermCasualPlayer> TermCasualPlayer {
+		private IObjectSet<TermPlayer> _TermPlayer = null;
+        public IObjectSet<TermPlayer> TermPlayer {
             get {
-                if (_TermCasualPlayer == null) {
-                    var result = new List<TermCasualPlayer>();
-                    _TermCasualPlayer = new FakeObjectSet<TermCasualPlayer>(result);
+                if (_TermPlayer == null) {
+                    var result = new List<TermPlayer>();
+                    _TermPlayer = new FakeObjectSet<TermPlayer>(result);
                 }
-                return _TermCasualPlayer;
-            }
-        }
-	
-		public TermPermanentPlayer GetOrCreateTermPermanentPlayer(int? TermPermanentPlayerID) {
-            TermPermanentPlayer item = this.TermPermanentPlayer.FirstOrDefault(x => x.TermPermanentPlayerID == TermPermanentPlayerID);
-			if (item == null){
-				item = new TermPermanentPlayer();
-				this.TermPermanentPlayer.AddObject(item);
-			}
-			return item;
-        }
-
-		private IObjectSet<TermPermanentPlayer> _TermPermanentPlayer = null;
-        public IObjectSet<TermPermanentPlayer> TermPermanentPlayer {
-            get {
-                if (_TermPermanentPlayer == null) {
-                    var result = new List<TermPermanentPlayer>();
-                    _TermPermanentPlayer = new FakeObjectSet<TermPermanentPlayer>(result);
-                }
-                return _TermPermanentPlayer;
+                return _TermPlayer;
             }
         }
 	

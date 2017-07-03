@@ -15,5 +15,6 @@ namespace NFTB.Contracts.Entities.Data
         public int CasualRate { get; set; }
         public bool IncludeOrganizer { get; set; }
 	    public int NumberOfPlayers { get; set; }
+        public bool IsDeleted { get; set; }
 	}
 }

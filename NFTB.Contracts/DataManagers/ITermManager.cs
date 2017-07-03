@@ -12,7 +12,7 @@ namespace NFTB.Contracts.DataManagers
         /// <summary>
         /// Saves this person to the data store
         /// </summary>
-        List<TermSummary> GetTerms();
+        List<TermSummary> GetTerms(bool? includeDeleted);
 
         TermSummary GetTerm(int termID);
 

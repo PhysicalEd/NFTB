@@ -9,5 +9,7 @@ namespace NFTB.Contracts.DataManagers
     public partial interface IPlayerManager
     {
         List<PlayerSummary> GetPlayers();
+        List<TermPlayerSummary> GetTermPlayers(int? termID);
+
     }
 }

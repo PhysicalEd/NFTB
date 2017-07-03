@@ -11,5 +11,7 @@ namespace NFTB.Contracts.DataManagers
         List<AttendanceSummary> GetAttendances();
         AttendanceSummary GetAttendance(int attendanceID);
         void DeleteAttendance(int attendanceID);
+        List<PlayerAttendanceSummary> GetPlayerAttendances(int? attendanceID);
+
     }
 }

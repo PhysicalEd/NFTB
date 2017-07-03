@@ -92,13 +92,12 @@
     <Compile Include="DataManagers\ITermManager.cs" />
     <Compile Include="DataManagers\IPersonManager.cs" />
     <Compile Include="DataManagers\ISystemLogManager.cs" />
+    <Compile Include="Entities\Data\PlayerAttendanceSummary.cs" />
     <Compile Include="Entities\Data\CodeGen.cs" />
-    <Compile Include="Entities\Data\TermCasualPlayerSummary.cs" />
-    <Compile Include="Entities\Data\PlayerSummary.cs" />
-    <Compile Include="Entities\Data\TermPermanentPlayerSummary.cs" />
     <Compile Include="Entities\Data\AttendanceSummary.cs" />
+    <Compile Include="Entities\Data\TermPlayerSummary.cs" />
     <Compile Include="Entities\Data\TermSummary.cs" />
-    <Compile Include="Entities\Data\PersonSummary.cs">
+    <Compile Include="Entities\Data\PlayerSummary.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\HTMLContent.cs" />

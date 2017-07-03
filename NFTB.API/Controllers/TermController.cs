@@ -12,9 +12,9 @@ namespace NFTB.API.Controllers
     public class TermController : ApiController
     {
         [HttpGet]
-        public List<TermSummary> TermList()
+        public List<TermSummary> TermList(bool? includeDeleted)
         {
-			return Dependency.Resolve<ITermManager>().GetTerms();
+			return Dependency.Resolve<ITermManager>().GetTerms(includeDeleted);
         }
 
         [HttpGet]

@@ -18,31 +18,31 @@ namespace NFTB.API.Controllers
 			return Dependency.Resolve<IPersonManager>().GetPerson(null);
         }
 
-        [HttpGet]
-        public PlayerListModel GetPeople()
-        {
-            var personMgr = Dependency.Resolve<IPersonManager>();
-            var model = new PlayerListModel();
+        //[HttpGet]
+        //public PlayerListModel GetPeople()
+        //{
+        //    var personMgr = Dependency.Resolve<IPersonManager>();
+        //    var model = new PlayerListModel();
 
-            model.CasualPlayers = new List<TermCasualPlayerSummary>()
-            {
-                new TermCasualPlayerSummary()
-                {
-                    TermCasualPlayerID = 1,
-                    HasPaid = true
-                }
-            };
+        //    model.CasualPlayers = new List<TermCasualPlayerSummary>()
+        //    {
+        //        new TermCasualPlayerSummary()
+        //        {
+        //            TermCasualPlayerID = 1,
+        //            HasPaid = true
+        //        }
+        //    };
 
-            model.PermanentPlayers = new List<TermPermanentPlayerSummary>()
-            {
-                new TermPermanentPlayerSummary()
-                {
-                    TermPermanentPlayerID = 1,
-                    BondPaid = 100
-                }
-            };
+        //    model.PermanentPlayers = new List<PlayerSummary>()
+        //    {
+        //        new PlayerSummary()
+        //        {
+        //            PlayerID = 1,
+        //            BondPaid = 100
+        //        }
+        //    };
 
-            return model;
-        }
+        //    return model;
+        //}
     }
 }

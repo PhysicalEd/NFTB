@@ -8,7 +8,7 @@ using System.Text;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 10 Jun 2017 
+// Code Generation Template developed by Ben Liebert, 2 Jul 2017 
 namespace NFTB.Contracts.Entities.Data {
 
 	/// <summary>
@@ -18,8 +18,7 @@ namespace NFTB.Contracts.Entities.Data {
 	{
 		public int AttendanceID { get; set; }
 		public int TermID { get; set; }
-		public int PlayerID { get; set; }
-		public DateTime DateAttended { get; set; }
+		public DateTime AttendanceDate { get; set; }
 		public bool IsNew { get { return (this.AttendanceID == 0); } }
 	}
 		
@@ -44,6 +43,19 @@ namespace NFTB.Contracts.Entities.Data {
 		public int PlayerID { get; set; }
 		public int PersonID { get; set; }
 		public bool IsNew { get { return (this.PlayerID == 0); } }
+	}
+		
+	/// <summary>
+	/// Interface of our generic PlayerAttendance object
+	/// </summary>
+	public partial class PlayerAttendance
+	{
+		public int PlayerAttendanceID { get; set; }
+		public int AttendanceID { get; set; }
+		public int PlayerID { get; set; }
+		public bool IsCasual { get; set; }
+		public int? AmountPaid { get; set; }
+		public bool IsNew { get { return (this.PlayerAttendanceID == 0); } }
 	}
 		
 	/// <summary>
@@ -77,29 +89,17 @@ namespace NFTB.Contracts.Entities.Data {
 	}
 		
 	/// <summary>
-	/// Interface of our generic TermCasualPlayer object
+	/// Interface of our generic TermPlayer object
 	/// </summary>
-	public partial class TermCasualPlayer
+	public partial class TermPlayer
 	{
-		public int TermCasualPlayerID { get; set; }
-		public int TermID { get; set; }
-		public int PlayerID { get; set; }
-		public bool Paid { get; set; }
-		public bool IsNew { get { return (this.TermCasualPlayerID == 0); } }
-	}
-		
-	/// <summary>
-	/// Interface of our generic TermPermanentPlayer object
-	/// </summary>
-	public partial class TermPermanentPlayer
-	{
-		public int TermPermanentPlayerID { get; set; }
+		public int TermPlayerID { get; set; }
 		public int TermID { get; set; }
 		public int PlayerID { get; set; }
 		public bool BondPaid { get; set; }
 		public int? TermDue { get; set; }
 		public int? TermOwing { get; set; }
-		public bool IsNew { get { return (this.TermPermanentPlayerID == 0); } }
+		public bool IsNew { get { return (this.TermPlayerID == 0); } }
 	}
 		
 
