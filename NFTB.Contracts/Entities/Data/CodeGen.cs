@@ -8,7 +8,7 @@ using System.Text;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 2 Jul 2017 
+// Code Generation Template developed by Ben Liebert, 1 Aug 2017 
 namespace NFTB.Contracts.Entities.Data {
 
 	/// <summary>
@@ -42,6 +42,7 @@ namespace NFTB.Contracts.Entities.Data {
 	{
 		public int PlayerID { get; set; }
 		public int PersonID { get; set; }
+		public bool IsDeleted { get; set; }
 		public bool IsNew { get { return (this.PlayerID == 0); } }
 	}
 		
@@ -85,6 +86,8 @@ namespace NFTB.Contracts.Entities.Data {
 		public int CasualRate { get; set; }
 		public bool IncludeOrganizer { get; set; }
 		public bool IsDeleted { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsInvoiced { get; set; }
 		public bool IsNew { get { return (this.TermID == 0); } }
 	}
 		

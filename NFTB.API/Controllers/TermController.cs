@@ -18,15 +18,24 @@ namespace NFTB.API.Controllers
         }
 
         [HttpGet]
-        public TermSummary TermEditor(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer)
+        public TermSummary ActiveTerm()
         {
-            return Dependency.Resolve<ITermManager>().SaveTerm(termID, termName, termStart, termEnd, bondAmount, casualRate, includeOrganizer);
+            return Dependency.Resolve<ITermManager>().GetTerms(false).FirstOrDefault(x=>x.IsActive);
         }
 
+ 
         [HttpGet]
         public void DeleteTerm(int? termID)
         {
             Dependency.Resolve<ITermManager>().DeleteTerm(termID);
+        }
+
+        [HttpGet]
+        public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isDeleted, bool isActive, bool isInvoiced)
+        {
+            var termMgr = Dependency.Resolve<ITermManager>();
+            // Save term
+            return termMgr.SaveTerm(termID, termName, termStart, termEnd, bondAmount, casualRate, includeOrganizer, isInvoiced);
         }
     }
 }

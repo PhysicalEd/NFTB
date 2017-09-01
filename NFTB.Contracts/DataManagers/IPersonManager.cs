@@ -10,7 +10,7 @@ namespace NFTB.Contracts.DataManagers
         /// <summary>
         /// Saves this person to the data store
         /// </summary>
-        Person SavePerson(int? personID, string email, string firstName, string lastName, string postalAddress, string phone);
+        Person SavePerson(int? personID, string firstName, string lastName, string phone, string email, bool isDeleted);
 
         PersonList GetPerson(int? personID);
     }

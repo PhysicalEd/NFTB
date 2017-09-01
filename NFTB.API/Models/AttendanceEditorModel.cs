@@ -8,8 +8,10 @@ namespace NFTB.API.Models
 {
     public class AttendanceEditorModel
     {
-        public List<PlayerSummary> PlayerList { get; set; } = new List<PlayerSummary>();
+        public AttendanceSummary Attendance { get; set; } = new AttendanceSummary();
         public List<PlayerAttendanceSummary> PlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
-
+        public List<PlayerAttendanceSummary> TermPlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
+        public List<PlayerAttendanceSummary> CasualPlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
+        public List<PlayerSummary> PlayerList { get; set; } = new List<PlayerSummary>();
     }
 }

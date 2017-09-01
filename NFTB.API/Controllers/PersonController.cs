@@ -44,5 +44,21 @@ namespace NFTB.API.Controllers
 
         //    return model;
         //}
+        //[HttpGet]
+        [HttpGet]
+        public Person SavePerson(int? personID, string firstName, string lastName, string phone, string email, bool isDeleted)
+        {
+            return Dependency.Resolve<IPersonManager>().SavePerson(personID, firstName, lastName, phone, email, isDeleted);
+        }
+
+
+
+        //[HttpGet]
+        //public Person DeletePerson(int personID)
+        //{
+        //    // Check if person is deleteable..ieE. not being used in other tables..
+        //    return Dependency.Resolve<IPersonManager>().DeletePerson(personID);
+        //}
+
     }
 }

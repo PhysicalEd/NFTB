@@ -14,6 +14,7 @@ namespace NFTB.Contracts.Entities.Data
         public string Phone { get; set; }
         public string Email { get; set; }
         public string PlayerName { get { return string.Format("{0} {1}", this.FirstName, this.LastName); } }
+        public bool IsDeleted { get; set; }
 
         // Term player
         public int TermPlayerID { get; set; }

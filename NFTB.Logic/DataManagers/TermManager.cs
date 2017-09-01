@@ -32,7 +32,9 @@ namespace NFTB.Logic.DataManagers
                             IncludeOrganizer = term.IncludeOrganizer,
                             TermStart = term.TermStart,
                             TermEnd = term.TermEnd,
-                            IsDeleted = term.IsDeleted
+                            IsDeleted = term.IsDeleted,
+                            IsActive = term.IsActive,
+                            IsInvoiced = term.IsInvoiced
                         }
                     );
 
@@ -48,7 +50,7 @@ namespace NFTB.Logic.DataManagers
 	        return this.GetTerms(true).FirstOrDefault(x=>x.TermID == termID);
 	    }
 
-        public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer)
+        public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isInvoiced)
         {
             using (var cxt = DataStore.CreateBlackBallArchitectureContext())
             {

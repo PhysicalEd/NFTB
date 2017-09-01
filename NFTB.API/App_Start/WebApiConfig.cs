@@ -17,6 +17,12 @@ namespace NFTB.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
+//            config.Routes.MapHttpRoute(
+//                name: "DefaultApi",
+//                routeTemplate: "api/{controller}/{action}",
+//                defaults: new { id = RouteParameter.Optional }
+//);
+
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
     }

@@ -18,34 +18,26 @@ namespace NFTB.Logic.DataManagers
 		/// <summary>
 		/// Saves this person to the data store
 		/// </summary>
-		public Person SavePerson(int? personID, string email, string firstName, string lastName, string postalAddress, string phone)
+		public Person SavePerson(int? personID, string firstName, string lastName, string phone, string email, bool isDeleted)
 		{
 			// Validate
 			email = email ?? "";
 			Dependency.Resolve<NFTB.Contracts.Validators.IEmailFormatValidator>().Validate(email);
 
-			// Clear cache
-			if (personID.HasValue) Dependency.Resolve<ICacheManager>().ClearTag(CacheTags.Person, personID);
-
 			// Now load new one for updates
 			using (var cxt = DataStore.CreateBlackBallArchitectureContext())
 			{
 				var data = cxt.GetOrCreatePerson(personID);
-				if (data.IsNew) //data.WhenCreated = DateTime.Now;
-				data.Email = email.ToLower().Trim();
 				data.FirstName = firstName;
 				data.LastName = lastName;
-				//data.PostalAddress = postalAddress;
 				data.Phone = phone;
-				cxt.SubmitChanges();
+                data.Email = email.ToLower().Trim();
+                cxt.SubmitChanges();
 
 				// Log this update
-				Dependency.Resolve<ILogger>().Log(firstName + " record updated");
-
 				return data;
 			}
 		}
-
 
 		/// <summary>
 		/// Returns the person matching this ID
@@ -89,6 +81,20 @@ namespace NFTB.Logic.DataManagers
 			var list = cache.Load(key, func);
 			return list;
 		}
+
+	    //public void DeletePerson(int personID)
+	    //{
+     //       using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+     //       {
+     //           var player = (from p in cxt.Person
+     //                         where p.PersonID == personID
+     //                         select p
+     //               ).FirstOrDefault();
+     //           if (player == null) return;
+     //           player.IsDeleted = true;
+     //           cxt.SubmitChanges();
+     //       }
+     //   }
 
 	}
 }

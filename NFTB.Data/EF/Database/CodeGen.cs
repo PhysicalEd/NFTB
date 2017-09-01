@@ -6,7 +6,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 2 Jul 2017 
+// Code Generation Template developed by Ben Liebert, 1 Aug 2017 
 namespace NFTB.Data.EF.Database {
 
 	/// <summary>
@@ -39,6 +39,7 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Player>().ToTable("Player");
 			modelBuilder.Entity<Player>().Property(x => x.PlayerID);
 			modelBuilder.Entity<Player>().Property(x => x.PersonID);
+			modelBuilder.Entity<Player>().Property(x => x.IsDeleted);
 		
 			// PlayerAttendance
 			modelBuilder.Entity<PlayerAttendance>().HasKey(x => x.PlayerAttendanceID);
@@ -70,6 +71,8 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Term>().Property(x => x.CasualRate);
 			modelBuilder.Entity<Term>().Property(x => x.IncludeOrganizer);
 			modelBuilder.Entity<Term>().Property(x => x.IsDeleted);
+			modelBuilder.Entity<Term>().Property(x => x.IsActive);
+			modelBuilder.Entity<Term>().Property(x => x.IsInvoiced);
 		
 			// TermPlayer
 			modelBuilder.Entity<TermPlayer>().HasKey(x => x.TermPlayerID);

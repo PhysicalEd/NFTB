@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,9 @@ namespace NFTB.Contracts.DataManagers
         List<AttendanceSummary> GetAttendances();
         AttendanceSummary GetAttendance(int attendanceID);
         void DeleteAttendance(int attendanceID);
-        List<PlayerAttendanceSummary> GetPlayerAttendances(int? attendanceID);
+        //List<PlayerAttendanceSummary> GetTermPlayerAttendances(int? attendanceID);
+        List<PlayerAttendanceSummary> GetPlayerAttendances(int? attendanceID, int termID);
+        AttendanceSummary SaveAttendance(AttendanceSummary attendance);
 
     }
 }

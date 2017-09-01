@@ -16,5 +16,8 @@ namespace NFTB.Contracts.Entities.Data
         public bool IncludeOrganizer { get; set; }
 	    public int NumberOfPlayers { get; set; }
         public bool IsDeleted { get; set; }
-	}
+        public bool IsActive { get; set; }
+        public bool IsInvoiced { get; set; }
+
+    }
 }

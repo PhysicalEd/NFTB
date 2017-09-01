@@ -17,7 +17,7 @@ namespace NFTB.Logic.DataManagers
 {
 	public partial class PlayerManager : IPlayerManager
 	{
-        public List<PlayerSummary> GetPlayers()
+        public List<PlayerSummary> GetPlayers(int? termID)
         {
             using (var cxt = DataStore.CreateBlackBallArchitectureContext())
             {
@@ -28,10 +28,13 @@ namespace NFTB.Logic.DataManagers
                         join tp in cxt.TermPlayer on player.PlayerID equals tp.PlayerID into tps
                         from tp in tps.DefaultIfEmpty()
 
+                        where player.IsDeleted == false
+                        
                         select new PlayerSummary()
                         {
                             PlayerID = player.PlayerID,
                             PersonID = player.PersonID,
+                            IsDeleted = player.IsDeleted,
                             FirstName = person.FirstName,
                             LastName = person.LastName,
 
@@ -43,6 +46,9 @@ namespace NFTB.Logic.DataManagers
                             TermOwing = tp.TermOwing
                         }
                     );
+
+                // Apply filters
+                if (termID.HasValue) data = data.Where(x => x.TermID == termID || x.TermID == 0);
                 return data.ToList();
             }
         }
@@ -79,7 +85,7 @@ namespace NFTB.Logic.DataManagers
 
         public PlayerSummary GetPlayer(int playerID)
 	    {
-	        return this.GetPlayers().FirstOrDefault(x=>x.PlayerID == playerID);
+	        return this.GetPlayers(null).FirstOrDefault(x=>x.PlayerID == playerID);
 	    }
 
         public void DeletePlayer(int playerID)
@@ -91,10 +97,29 @@ namespace NFTB.Logic.DataManagers
                             select p
                     ).FirstOrDefault();
                 if (player == null) return;
-                //player.IsDeleted = true;
+                player.IsDeleted = true;
                 cxt.SubmitChanges();
             }
 
+        }
+
+        /// <summary>
+        /// Saves this person to the data store
+        /// </summary>
+        public PlayerSummary SavePlayer(int? playerID, string firstName, string lastName, string phone, string email)
+        {
+            
+            // Now load new one for updates
+            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            {
+                var player = cxt.GetOrCreatePlayer(playerID);
+                var person = Dependency.Resolve<IPersonManager>().SavePerson(null, firstName, lastName, phone, email, false);
+                player.PersonID = person.PersonID;
+                cxt.SubmitChanges();
+
+                // Log this update
+                return this.GetPlayer(player.PlayerID);
+            }
         }
     }
 }
