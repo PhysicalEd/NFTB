@@ -19,6 +19,7 @@ namespace NFTB.Contracts.DataManagers
         TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isInvoice);
         void DeleteTerm(int? termID);
 
+        InvoiceSummary GetInvoice(int invoiceID);
 
     }
 }

@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 1 Aug 2017 
+// Code Generation Template developed by Ben Liebert, 14 Sep 2017 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>
@@ -17,6 +17,8 @@ namespace NFTB.Data.EF.Fake {
 		private void CreateIdentityvalues()
 		{
 			this.Attendance.Where(x => x.AttendanceID == 0).ToList().ForEach(x => x.AttendanceID = this.Attendance.Max(y => y.AttendanceID) + 1);
+			this.Invoice.Where(x => x.InvoiceID == 0).ToList().ForEach(x => x.InvoiceID = this.Invoice.Max(y => y.InvoiceID) + 1);
+			this.Login.Where(x => x.LoginID == 0).ToList().ForEach(x => x.LoginID = this.Login.Max(y => y.LoginID) + 1);
 			this.Person.Where(x => x.PersonID == 0).ToList().ForEach(x => x.PersonID = this.Person.Max(y => y.PersonID) + 1);
 			this.Player.Where(x => x.PlayerID == 0).ToList().ForEach(x => x.PlayerID = this.Player.Max(y => y.PlayerID) + 1);
 			this.PlayerAttendance.Where(x => x.PlayerAttendanceID == 0).ToList().ForEach(x => x.PlayerAttendanceID = this.PlayerAttendance.Max(y => y.PlayerAttendanceID) + 1);
@@ -42,6 +44,46 @@ namespace NFTB.Data.EF.Fake {
                     _Attendance = new FakeObjectSet<Attendance>(result);
                 }
                 return _Attendance;
+            }
+        }
+	
+		public Invoice GetOrCreateInvoice(int? InvoiceID) {
+            Invoice item = this.Invoice.FirstOrDefault(x => x.InvoiceID == InvoiceID);
+			if (item == null){
+				item = new Invoice();
+				this.Invoice.AddObject(item);
+			}
+			return item;
+        }
+
+		private IObjectSet<Invoice> _Invoice = null;
+        public IObjectSet<Invoice> Invoice {
+            get {
+                if (_Invoice == null) {
+                    var result = new List<Invoice>();
+                    _Invoice = new FakeObjectSet<Invoice>(result);
+                }
+                return _Invoice;
+            }
+        }
+	
+		public Login GetOrCreateLogin(int? LoginID) {
+            Login item = this.Login.FirstOrDefault(x => x.LoginID == LoginID);
+			if (item == null){
+				item = new Login();
+				this.Login.AddObject(item);
+			}
+			return item;
+        }
+
+		private IObjectSet<Login> _Login = null;
+        public IObjectSet<Login> Login {
+            get {
+                if (_Login == null) {
+                    var result = new List<Login>();
+                    _Login = new FakeObjectSet<Login>(result);
+                }
+                return _Login;
             }
         }
 	

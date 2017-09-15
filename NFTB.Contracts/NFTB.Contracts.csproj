@@ -95,7 +95,9 @@
     <Compile Include="Entities\Data\PlayerAttendanceSummary.cs" />
     <Compile Include="Entities\Data\CodeGen.cs" />
     <Compile Include="Entities\Data\AttendanceSummary.cs" />
+    <Compile Include="Entities\Data\LoginSummary.cs" />
     <Compile Include="Entities\Data\TermPlayerSummary.cs" />
+    <Compile Include="Entities\Data\InvoiceSummary.cs" />
     <Compile Include="Entities\Data\TermSummary.cs" />
     <Compile Include="Entities\Data\PlayerSummary.cs">
       <SubType>Code</SubType>
@@ -105,6 +107,7 @@
     <Compile Include="Entities\Lists\PersonList.cs" />
     <Compile Include="Entities\Lists\SystemLogList.cs" />
     <Compile Include="Entities\SimpleCachableValue.cs" />
+    <Compile Include="Enums\InvoiceStates.cs" />
     <Compile Include="Enums\SystemLogTypes.cs" />
     <Compile Include="Exceptions\EmailFormatException.cs" />
     <Compile Include="Exceptions\UserException.cs" />

@@ -9,12 +9,15 @@ namespace NFTB.Contracts.DataManagers
 {
     public partial interface IAttendanceManager
     {
-        List<AttendanceSummary> GetAttendances();
+        List<AttendanceSummary> GetAttendances(int? termID, bool includeDisabled = false);
         AttendanceSummary GetAttendance(int attendanceID);
         void DeleteAttendance(int attendanceID);
         //List<PlayerAttendanceSummary> GetTermPlayerAttendances(int? attendanceID);
-        List<PlayerAttendanceSummary> GetPlayerAttendances(int? attendanceID, int termID);
+        List<PlayerAttendanceSummary> GetPlayerAttendances(int attendanceID);
         AttendanceSummary SaveAttendance(AttendanceSummary attendance);
+        List<PlayerAttendanceSummary> GetAttendedCasualPlayersForTerm(int termID);
+        List<PlayerAttendanceSummary> GenerateEmptyPlayerAttendances(int termID);
+
 
     }
 }

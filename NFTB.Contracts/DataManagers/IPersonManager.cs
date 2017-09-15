@@ -13,5 +13,9 @@ namespace NFTB.Contracts.DataManagers
         Person SavePerson(int? personID, string firstName, string lastName, string phone, string email, bool isDeleted);
 
         PersonList GetPerson(int? personID);
+        LoginSummary GetTestLogin();
+        LoginSummary SignIn(string username, string password);
+
+
     }
 }

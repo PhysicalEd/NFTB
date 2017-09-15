@@ -20,7 +20,7 @@ namespace NFTB.API.Controllers
             //var attendanceListModel = new AttendanceListModel();
             var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
 
-            var attendances = attendanceMgr.GetAttendances();
+            var attendances = attendanceMgr.GetAttendances(null, false);
             foreach (var attendance in attendances)
             {
                 //attendance.TermPlayerAttendances = attendanceMgr.GetTermPlayerAttendances(attendance.AttendanceID);
@@ -30,18 +30,22 @@ namespace NFTB.API.Controllers
         }
 
         [HttpGet]
-        //public AttendanceEditorModel AttendanceEditor(int? attendanceID)
-
-        public AttendanceEditorModel AttendanceEditor(int? attendanceID, int termID)
+        public AttendanceEditorModelResult AttendanceEditor(int? attendanceID, int termID)
         {
-            var model = new AttendanceEditorModel();
+            var model = new AttendanceEditorModelResult();
 
             var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
+            var playerMgr = Dependency.Resolve<IPlayerManager>();
+            // Get the attendnace
             model.Attendance = attendanceMgr.GetAttendance(attendanceID.GetValueOrDefault(0));
-            // Double check that this particular attendance indeed part of the term... If not, throw exception
-            if (model.Attendance.TermID != termID) throw new Exception();
+            
+            // We will throw an exception if there is a value sent but cannot be found in the system
+            if (attendanceID.HasValue && model.Attendance == null) throw new Exception();
 
-            model.PlayerAttendances = attendanceMgr.GetPlayerAttendances(attendanceID, termID);
+            // Load player attendances. If attendanceID is null, this will simply return empty player attendances
+            model.PlayerAttendances = attendanceID.HasValue ? attendanceMgr.GetPlayerAttendances((int)attendanceID) : attendanceMgr.GenerateEmptyPlayerAttendances(termID);
+            
+            // Go through each attendance and separate terms from casual attendances
             foreach (var playerAttendance in model.PlayerAttendances)
             {
                 if (playerAttendance.TermID > 0) model.TermPlayerAttendances.Add(playerAttendance);
@@ -85,11 +89,11 @@ namespace NFTB.API.Controllers
         //}
 
 
-        //public AttendanceEditorModel AttendanceEditor(int? attendanceID)
+        //public AttendanceEditorModelResult AttendanceEditor(int? attendanceID)
         //{
         //    var attendanceMgr = new AttendanceManager();
         //    var playerMgr = new PlayerManager();
-        //    var attendanceEditorModel = new AttendanceEditorModel();
+        //    var attendanceEditorModel = new AttendanceEditorModelResult();
 
         //    attendanceEditorModel.PlayerList = playerMgr.GetPlayers(null);
 
@@ -101,7 +105,7 @@ namespace NFTB.API.Controllers
         //            var playerAttendance = new PlayerAttendanceSummary()
         //            {
         //                PlayerID = player.PlayerID,
-        //                FullName = player.FullName
+        //                DisplayName = player.DisplayName
         //            };
         //            attendanceEditorModel.PlayerAttendances.Add(playerAttendance);
         //        }

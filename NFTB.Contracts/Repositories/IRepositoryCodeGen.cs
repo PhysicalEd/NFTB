@@ -4,7 +4,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 1 Aug 2017 
+// Code Generation Template developed by Ben Liebert, 14 Sep 2017 
 namespace NFTB.Contracts.Repositories {
 
 	 /// <summary>
@@ -15,6 +15,10 @@ namespace NFTB.Contracts.Repositories {
     
 		Entities.Data.Attendance GetOrCreateAttendance(int? AttendanceID);
         IObjectSet<Entities.Data.Attendance> Attendance { get; }
+		Entities.Data.Invoice GetOrCreateInvoice(int? InvoiceID);
+        IObjectSet<Entities.Data.Invoice> Invoice { get; }
+		Entities.Data.Login GetOrCreateLogin(int? LoginID);
+        IObjectSet<Entities.Data.Login> Login { get; }
 		Entities.Data.Person GetOrCreatePerson(int? PersonID);
         IObjectSet<Entities.Data.Person> Person { get; }
 		Entities.Data.Player GetOrCreatePlayer(int? PlayerID);

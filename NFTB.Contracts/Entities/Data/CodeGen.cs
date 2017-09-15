@@ -8,7 +8,7 @@ using System.Text;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 1 Aug 2017 
+// Code Generation Template developed by Ben Liebert, 14 Sep 2017 
 namespace NFTB.Contracts.Entities.Data {
 
 	/// <summary>
@@ -19,7 +19,33 @@ namespace NFTB.Contracts.Entities.Data {
 		public int AttendanceID { get; set; }
 		public int TermID { get; set; }
 		public DateTime AttendanceDate { get; set; }
+		public bool IsDisabled { get; set; }
 		public bool IsNew { get { return (this.AttendanceID == 0); } }
+	}
+		
+	/// <summary>
+	/// Interface of our generic Invoice object
+	/// </summary>
+	public partial class Invoice
+	{
+		public int InvoiceID { get; set; }
+		public int TermID { get; set; }
+		public int Status { get; set; }
+		public DateTime InvoiceDate { get; set; }
+		public int TotalAmount { get; set; }
+		public DateTime? WhenPaid { get; set; }
+		public bool IsNew { get { return (this.InvoiceID == 0); } }
+	}
+		
+	/// <summary>
+	/// Interface of our generic Login object
+	/// </summary>
+	public partial class Login
+	{
+		public int LoginID { get; set; }
+		public string Username { get; set; }
+		public string Password { get; set; }
+		public bool IsNew { get { return (this.LoginID == 0); } }
 	}
 		
 	/// <summary>
@@ -32,6 +58,7 @@ namespace NFTB.Contracts.Entities.Data {
 		public string LastName { get; set; }
 		public string Phone { get; set; }
 		public string Email { get; set; }
+		public int? LoginID { get; set; }
 		public bool IsNew { get { return (this.PersonID == 0); } }
 	}
 		
@@ -55,7 +82,7 @@ namespace NFTB.Contracts.Entities.Data {
 		public int AttendanceID { get; set; }
 		public int PlayerID { get; set; }
 		public bool IsCasual { get; set; }
-		public int? AmountPaid { get; set; }
+		public int AmountPaid { get; set; }
 		public bool IsNew { get { return (this.PlayerAttendanceID == 0); } }
 	}
 		
@@ -87,7 +114,6 @@ namespace NFTB.Contracts.Entities.Data {
 		public bool IncludeOrganizer { get; set; }
 		public bool IsDeleted { get; set; }
 		public bool IsActive { get; set; }
-		public bool IsInvoiced { get; set; }
 		public bool IsNew { get { return (this.TermID == 0); } }
 	}
 		

@@ -34,7 +34,6 @@ namespace NFTB.Logic.DataManagers
                             TermEnd = term.TermEnd,
                             IsDeleted = term.IsDeleted,
                             IsActive = term.IsActive,
-                            IsInvoiced = term.IsInvoiced
                         }
                     );
 
@@ -84,5 +83,26 @@ namespace NFTB.Logic.DataManagers
             }
 
         }
+
+
+	    public InvoiceSummary GetInvoice(int invoiceID)
+	    {
+	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        {
+	            var data = (
+                    from i in cxt.Invoice
+                    join t in cxt.Term on i.TermID equals t.TermID
+                    select new InvoiceSummary()
+                    {
+                        InvoiceID = i.InvoiceID,
+                        TermID = t.TermID,
+                        InvoiceDate = i.InvoiceDate,
+                        TotalAmount = i.TotalAmount,
+                    }
+                    
+                ).FirstOrDefault();
+	            return data;
+	        }
+	    }
     }
 }

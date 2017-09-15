@@ -19,9 +19,9 @@ namespace NFTB.API.Controllers
         }
 
         [HttpGet]
-        public List<TermPlayerSummary> TermPlayerList(int? termID)
+        public List<PlayerSummary> TermPlayerList(int? termID)
         {
-            return Dependency.Resolve<IPlayerManager>().GetTermPlayers(termID);
+            return Dependency.Resolve<IPlayerManager>().GetPlayers(termID);
         }
 
         [HttpGet]

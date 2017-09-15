@@ -6,7 +6,7 @@ using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.API.Models
 {
-    public class AttendanceEditorModel
+    public class AttendanceEditorModelResult
     {
         public AttendanceSummary Attendance { get; set; } = new AttendanceSummary();
         public List<PlayerAttendanceSummary> PlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();

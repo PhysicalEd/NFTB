@@ -48,12 +48,12 @@ namespace NFTB.Logic.DataManagers
                     );
 
                 // Apply filters
-                if (termID.HasValue) data = data.Where(x => x.TermID == termID || x.TermID == 0);
+                if (termID.HasValue) data = data.Where(x => x.TermID == termID);
                 return data.ToList();
             }
         }
 
-        public List<TermPlayerSummary> GetTermPlayers(int? attendanceID)
+        public List<PlayerSummary> GetTermPlayers(int termID)
         {
             using (var cxt = DataStore.CreateBlackBallArchitectureContext())
             {
@@ -61,7 +61,8 @@ namespace NFTB.Logic.DataManagers
                         from tp in cxt.TermPlayer
                         join p in cxt.Player on tp.PlayerID equals p.PlayerID
                         join person in cxt.Person on p.PersonID equals person.PersonID
-                        select new TermPlayerSummary()
+                        where tp.TermID == termID
+                        select new PlayerSummary()
                         {
                             TermID = tp.TermID,
                             BondPaid = tp.BondPaid,

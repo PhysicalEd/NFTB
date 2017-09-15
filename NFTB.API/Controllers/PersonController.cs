@@ -13,6 +13,8 @@ namespace NFTB.API.Controllers
     public class PersonController : ApiController
     {
         [HttpGet]
+        [HttpPost]
+        [Authorize]
         public List<Person> PeopleList()
         {
 			return Dependency.Resolve<IPersonManager>().GetPerson(null);

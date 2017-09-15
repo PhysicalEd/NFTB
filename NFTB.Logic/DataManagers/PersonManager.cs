@@ -82,19 +82,60 @@ namespace NFTB.Logic.DataManagers
 			return list;
 		}
 
-	    //public void DeletePerson(int personID)
-	    //{
-     //       using (var cxt = DataStore.CreateBlackBallArchitectureContext())
-     //       {
-     //           var player = (from p in cxt.Person
-     //                         where p.PersonID == personID
-     //                         select p
-     //               ).FirstOrDefault();
-     //           if (player == null) return;
-     //           player.IsDeleted = true;
-     //           cxt.SubmitChanges();
-     //       }
-     //   }
+        //public void DeletePerson(int personID)
+        //{
+        //       using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+        //       {
+        //           var player = (from p in cxt.Person
+        //                         where p.PersonID == personID
+        //                         select p
+        //               ).FirstOrDefault();
+        //           if (player == null) return;
+        //           player.IsDeleted = true;
+        //           cxt.SubmitChanges();
+	    //       }
+	    //   }
 
-	}
+	    public LoginSummary GetTestLogin()
+	    {
+	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        {
+	            var data = (
+	                from l in cxt.Login
+	                join p in cxt.Person on l.LoginID equals p.LoginID
+	                select new LoginSummary()
+	                {
+	                    FirstName = p.FirstName,
+	                    LastName = p.LastName,
+	                    LoginID = l.LoginID,
+	                    Username = l.Username,
+	                    Password = l.Password
+	                }
+                ).FirstOrDefault();
+	            return data;
+	        }
+        }
+
+	    public LoginSummary SignIn(string username, string password)
+	    {
+	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        {
+	            var data = (
+                    from l in cxt.Login
+                    join p in cxt.Person on l.LoginID equals p.LoginID
+                    where l.Username == username
+                    && l.Password == password
+                    select new LoginSummary()
+                    {
+                        FirstName = p.FirstName,
+                        LastName = p.LastName,
+                        LoginID = l.LoginID
+                    }
+                ).FirstOrDefault();
+	            return data;
+	        }
+	    }
+
+        //private 
+    }
 }
