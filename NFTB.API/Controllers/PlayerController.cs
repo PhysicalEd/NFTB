@@ -10,7 +10,7 @@ using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.API.Controllers
 {
-    public class PlayerController : ApiController
+    public class PlayerController : Basecontroller
     {
         [HttpGet]
         public List<PlayerSummary> PlayerList(int? termID)

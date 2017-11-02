@@ -8,7 +8,7 @@ using System.Text;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 14 Sep 2017 
+// Code Generation Template developed by Ben Liebert, 22 Oct 2017 
 namespace NFTB.Contracts.Entities.Data {
 
 	/// <summary>
@@ -30,10 +30,10 @@ namespace NFTB.Contracts.Entities.Data {
 	{
 		public int InvoiceID { get; set; }
 		public int TermID { get; set; }
-		public int Status { get; set; }
 		public DateTime InvoiceDate { get; set; }
 		public int TotalAmount { get; set; }
 		public DateTime? WhenPaid { get; set; }
+		public int NumberOfSessions { get; set; }
 		public bool IsNew { get { return (this.InvoiceID == 0); } }
 	}
 		
@@ -45,6 +45,8 @@ namespace NFTB.Contracts.Entities.Data {
 		public int LoginID { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
+		public int PersonID { get; set; }
+		public bool IsVerified { get; set; }
 		public bool IsNew { get { return (this.LoginID == 0); } }
 	}
 		
@@ -81,7 +83,6 @@ namespace NFTB.Contracts.Entities.Data {
 		public int PlayerAttendanceID { get; set; }
 		public int AttendanceID { get; set; }
 		public int PlayerID { get; set; }
-		public bool IsCasual { get; set; }
 		public int AmountPaid { get; set; }
 		public bool IsNew { get { return (this.PlayerAttendanceID == 0); } }
 	}

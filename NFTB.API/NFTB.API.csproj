@@ -163,6 +163,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegistrationSummary.cs" />
     <Compile Include="Models\TermDetailModelResult.cs" />
     <Compile Include="Models\AttendanceEditorModelResult.cs" />
     <Compile Include="Models\AttendanceListModel.cs" />

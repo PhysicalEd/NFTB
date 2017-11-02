@@ -13,10 +13,10 @@ namespace NFTB.Contracts.DataManagers
         AttendanceSummary GetAttendance(int attendanceID);
         void DeleteAttendance(int attendanceID);
         //List<PlayerAttendanceSummary> GetTermPlayerAttendances(int? attendanceID);
+        List<PlayerAttendanceSummary> GetAttendedPlayerAttendances(int attendanceID);
         List<PlayerAttendanceSummary> GetPlayerAttendances(int attendanceID);
         AttendanceSummary SaveAttendance(AttendanceSummary attendance);
-        List<PlayerAttendanceSummary> GetAttendedCasualPlayersForTerm(int termID);
-        List<PlayerAttendanceSummary> GenerateEmptyPlayerAttendances(int termID);
+        List<PlayerAttendanceSummary> GetEmptyPlayerAttendances(int termID);
 
 
     }

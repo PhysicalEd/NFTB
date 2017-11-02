@@ -53,6 +53,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -81,6 +85,7 @@
   <ItemGroup>
     <Compile Include="AppSettingsRetriever.cs" />
     <Compile Include="DataManagers\AttendanceManager.cs" />
+    <Compile Include="DataManagers\AccountManager.cs" />
     <Compile Include="DataManagers\PlayerManager.cs" />
     <Compile Include="DataManagers\TermManager.cs" />
     <Compile Include="EntityFrameworkInitializer.cs" />
@@ -134,6 +139,9 @@
       <Project>{EC5802EC-4E6E-48A7-A2DC-827589EACE2A}</Project>
       <Name>NFTB.Dependency</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

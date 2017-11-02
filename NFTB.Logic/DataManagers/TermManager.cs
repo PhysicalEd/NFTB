@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using NFTB.Common.Extensions;
@@ -54,20 +55,38 @@ namespace NFTB.Logic.DataManagers
             using (var cxt = DataStore.CreateBlackBallArchitectureContext())
             {
                 var term = cxt.GetOrCreateTerm(termID);
-                if (term.IsNew)
-                {
-                    term.TermName = termName;
-                    term.TermStart = termStart;
-                    term.TermEnd = termEnd;
-                    term.BondAmount = bondAmount;
-                    term.CasualRate = casualRate;
-                    term.IncludeOrganizer = includeOrganizer;
-                    cxt.SubmitChanges();
-                }
+                term.TermName = termName;
+                term.TermStart = termStart;
+                term.TermEnd = termEnd;
+                term.BondAmount = bondAmount;
+                term.CasualRate = casualRate;
+                term.IncludeOrganizer = includeOrganizer;
+                cxt.SubmitChanges();
                 return this.GetTerm(term.TermID);
             }
 
         }
+
+	    public TermSummary GetLatestActiveTerm()
+	    {
+	        return this.GetTerms(false).FirstOrDefault(x => x.IsActive);
+	    }
+
+        public InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid)
+	    {
+	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        {
+	            var invoice = cxt.GetOrCreateInvoice(invoiceID);
+	            invoice.TermID = termID;
+	            invoice.InvoiceDate = invoiceDate;
+	            invoice.TotalAmount = totalAmount;
+	            invoice.NumberOfSessions = numberOfSessions;
+	            invoice.WhenPaid = whenPaid;
+                cxt.SubmitChanges();
+	            return this.GetInvoice(invoice.InvoiceID);
+	        }
+
+	    }
 
         public void DeleteTerm(int? termID)
         {
@@ -84,8 +103,18 @@ namespace NFTB.Logic.DataManagers
 
         }
 
-
 	    public InvoiceSummary GetInvoice(int invoiceID)
+	    {
+	        return this.GetInvoices(null).FirstOrDefault(x => x.InvoiceID == invoiceID);
+	    }
+
+        public InvoiceSummary GetInvoiceByTerm(int termID)
+	    {
+	        return this.GetInvoices(termID).FirstOrDefault();
+	    }
+
+
+        public List<InvoiceSummary> GetInvoices(int? termID)
 	    {
 	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
 	        {
@@ -96,11 +125,21 @@ namespace NFTB.Logic.DataManagers
                     {
                         InvoiceID = i.InvoiceID,
                         TermID = t.TermID,
+                        TermName = t.TermName,
+                        TermStart = t.TermStart,
+                        TermEnd = t.TermEnd,
+                        OrganizerIncluded = t.IncludeOrganizer,
+                        WhenPaid = i.WhenPaid,
                         InvoiceDate = i.InvoiceDate,
                         TotalAmount = i.TotalAmount,
+                        NumberOfSessions = i.NumberOfSessions
+
                     }
                     
-                ).FirstOrDefault();
+                ).ToList();
+
+	            if (termID.HasValue) data = data.Where(x => x.TermID == termID).ToList();
+
 	            return data;
 	        }
 	    }

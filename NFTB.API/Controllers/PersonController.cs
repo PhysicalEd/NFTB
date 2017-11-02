@@ -10,7 +10,7 @@ using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.API.Controllers
 {
-    public class PersonController : ApiController
+    public class PersonController : Basecontroller
     {
         [HttpGet]
         [HttpPost]

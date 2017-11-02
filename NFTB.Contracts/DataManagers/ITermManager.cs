@@ -14,12 +14,21 @@ namespace NFTB.Contracts.DataManagers
         /// </summary>
         List<TermSummary> GetTerms(bool? includeDeleted);
 
+        InvoiceSummary GetInvoice(int invoiceID);
+
+
         TermSummary GetTerm(int termID);
 
         TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isInvoice);
         void DeleteTerm(int? termID);
+        TermSummary GetLatestActiveTerm();
 
-        InvoiceSummary GetInvoice(int invoiceID);
+
+
+        InvoiceSummary GetInvoiceByTerm(int termID);
+
+        InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid);
+
 
     }
 }

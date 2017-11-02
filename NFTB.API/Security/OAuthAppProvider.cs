@@ -16,21 +16,11 @@ public class OAuthAppProvider : OAuthAuthorizationServerProvider
         {
             var username = context.UserName;
             var password = context.Password;
-            // Original
-            //var userService = new UserService();
-            //User user = userService.GetUserByCredentials(username, password);
-            //if (user != null)
-            //{
-            //    var claims = new List<Claim>()
-            //    {
-            //        new Claim(ClaimTypes.Name, user.Name),
-            //        new Claim("UserID", user.Id)
-            //    };
 
-            //    ClaimsIdentity oAutIdentity = new ClaimsIdentity(claims, Startup.OAuthOptions.AuthenticationType);
-            //    context.Validated(new AuthenticationTicket(oAutIdentity, new AuthenticationProperties() { }));
-            //}
-            var login = Dependency.Resolve<IPersonManager>().GetTestLogin();
+            var accountMgr = Dependency.Resolve<IAccountManager>();
+            var login = accountMgr.SignIn(username, password);
+
+            //var login = Dependency.Resolve<IPersonManager>().GetTestLogin();
             if (login != null)
             {
                 var claims = new List<Claim>()
@@ -39,6 +29,7 @@ public class OAuthAppProvider : OAuthAuthorizationServerProvider
                     new Claim("UserID", login.LoginID.ToString())
                 };
 
+                
                 ClaimsIdentity oAutIdentity = new ClaimsIdentity(claims, Startup.OAuthOptions.AuthenticationType);
                 context.Validated(new AuthenticationTicket(oAutIdentity, new AuthenticationProperties() { }));
             }

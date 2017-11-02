@@ -41,6 +41,14 @@ namespace NFTB.API.Controllers
         }
 
         [HttpGet]
+        public InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid)
+        {
+            var termMgr = Dependency.Resolve<ITermManager>();
+            // Save invoice
+            return termMgr.SaveInvoice(invoiceID, termID, invoiceDate, totalAmount, numberOfSessions, whenPaid);
+        }
+
+        [HttpGet]
         public TermDetailModelResult TermDetails(int termID)
         {
             var model = new TermDetailModelResult();
@@ -51,7 +59,7 @@ namespace NFTB.API.Controllers
 
             model.Term = termMgr.GetTerm(termID);
             model.TermPlayers = playerMgr.GetPlayers(termID);
-            model.Invoice = termMgr.GetInvoice(termID);
+            model.Invoice = termMgr.GetInvoiceByTerm(termID);
             model.Attendances = attendanceMgr.GetAttendances(termID, false);
 
             if (model.Attendances.Any())
@@ -68,12 +76,29 @@ namespace NFTB.API.Controllers
 
             model.ExpectedAmountFromCasuals = model.Attendances.Sum(x => x.ExpectedAmountFromCasuals);
             model.ActualAmountFromCasuals = model.Attendances.Sum(x => x.ActualAmountFromCasuals);
-
+            model.NumberOfTermPlayers = model.TermPlayers.Count;
+            //model.NumberOfSessions
 
             //model.ActualAmountFromCasuals = model.CasualPlayerAttendancesForTerm.Count * model.Term.CasualRate;
             //model.TotalAmountOwingFromTermPlayers = model.TermPlayers.Count * model.Term. 
 
             return model;
+        }
+
+        [HttpGet]
+        public InvoiceSummary InvoiceDetails(int invoiceID)
+        {
+            var termMgr = Dependency.Resolve<ITermManager>();
+            var invoice = termMgr.GetInvoice(invoiceID);
+            return invoice;
+        }
+
+        [HttpGet]
+        public InvoiceSummary InvoiceDetailByTerm(int termID)
+        {
+            var termMgr = Dependency.Resolve<ITermManager>();
+            var invoice = termMgr.GetInvoiceByTerm(termID);
+            return invoice;
         }
     }
 }
