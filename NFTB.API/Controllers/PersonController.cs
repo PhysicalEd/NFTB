@@ -14,7 +14,7 @@ namespace NFTB.API.Controllers
     {
         [HttpGet]
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public List<Person> PeopleList()
         {
 			return Dependency.Resolve<IPersonManager>().GetPerson(null);
