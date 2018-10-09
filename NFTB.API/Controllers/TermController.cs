@@ -58,9 +58,9 @@ namespace NFTB.API.Controllers
             var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
 
             model.Term = termMgr.GetTerm(termID);
-            model.TermPlayers = playerMgr.GetPlayers(termID);
+            model.TermPlayers = playerMgr.GetPlayers(null, null);
             model.Invoice = termMgr.GetInvoiceByTerm(termID);
-            model.Attendances = attendanceMgr.GetAttendances(termID, false);
+            model.Attendances = attendanceMgr.GetAttendances(null, termID);
 
             if (model.Attendances.Any())
             {

@@ -22,7 +22,7 @@ namespace NFTB.Logic.DataManagers
 		/// </summary>
 		public void SaveCredentials(string username, string password)
 		{
-		    using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+		    using (var cxt = DataStore.GetDataStore())
 			{
                 // Load the login details if exists
 			    //var login = cxt.Login.FirstOrDefault(x => x.Username.ToLower() == username);
@@ -39,7 +39,7 @@ namespace NFTB.Logic.DataManagers
 
 	    public LoginSummary SignIn(string username, string password)
 	    {
-	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        using (var cxt = DataStore.GetDataStore())
 	        {
 	            // Load the login details if exists
 	            //var login = cxt.Login.FirstOrDefault(x => x.Username.ToLower() == username);
@@ -70,7 +70,7 @@ namespace NFTB.Logic.DataManagers
 
         //    username = username.ToLower();
 
-        //    using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+        //    using (var cxt = DataStore.GetDataStore())
         //    {
         //        // Load the login details if exists
         //        var login = cxt.Login.FirstOrDefault(x => x.Username.ToLower() == username);

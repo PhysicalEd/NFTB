@@ -12,7 +12,7 @@ namespace NFTB.Contracts.Entities.Data
         public int? TermID { get; set; }
         public int PlayerID { get; set; }
         public bool IsCasual { get; set; }
-        public int AmountPaid { get; set; }
+        public decimal AmountPaid { get; set; }
         public bool HasAttended { get; set; }
 
         // Player details

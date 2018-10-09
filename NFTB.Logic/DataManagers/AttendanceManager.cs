@@ -19,9 +19,9 @@ namespace NFTB.Logic.DataManagers
 {
     public partial class AttendanceManager : IAttendanceManager
     {
-        public List<AttendanceSummary> GetAttendances(int? termID, bool includeDisabled = false)
+        public List<AttendanceSummary> GetAttendances(int? attendanceID, int? termID)
         {
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 var data = (
                         from a in cxt.Attendance
@@ -39,6 +39,7 @@ namespace NFTB.Logic.DataManagers
 
                 // Filters
                 if (termID.HasValue) data = data.Where(x => x.TermID == termID).ToList();
+                if (attendanceID.HasValue) data = data.Where(x => x.AttendanceID == attendanceID).ToList();
                 return data;
             }
         }
@@ -54,7 +55,7 @@ namespace NFTB.Logic.DataManagers
             // Use latest term ID if there is no attendance. IE. it is a new attendance
             var termID = attendance?.TermID ?? latestTermID;
 
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 var data = (
                     from p in cxt.Player
@@ -84,7 +85,7 @@ namespace NFTB.Logic.DataManagers
         public List<PlayerAttendanceSummary> GetAttendedPlayerAttendances(int attendanceID)
         {
             // We will return a list of both players attended and not attended
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 //var playersAttended = cxt.PlayerAttendance.Where(x => x.AttendanceID == attendanceID);
                 var data = (
@@ -119,43 +120,23 @@ namespace NFTB.Logic.DataManagers
                 return data.Where(x => x.AttendanceID == attendanceID).ToList();
             }
         }
-        // EO TODO For real...
         public List<PlayerAttendanceSummary> GetPlayerAttendances(int attendanceID)
         {
             // We will return a list of both players attended and not attended
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
-                //var attendedPlayers = (
-
-                //    select new {pa, att, t, p, person}
-                //);
-
-
-
                 //var playersAttended = cxt.PlayerAttendance.Where(x => x.AttendanceID == attendanceID);
                 var data = (
                     from pa in cxt.PlayerAttendance
-
                     join att in cxt.Attendance on pa.AttendanceID equals att.AttendanceID
-
                     join t in cxt.Term on att.TermID equals t.TermID
-
                     join p in cxt.Player on pa.PlayerID equals p.PlayerID
-
                     join person in cxt.Person on p.PersonID equals person.PersonID
 
-                                        //from ap in attendedPlayers
-                                        //from pa in cxt.PlayerAttendance
-
-                                        //join att in cxt.Attendance on pa.AttendanceID equals att.AttendanceID
-
-                                        //join t in cxt.Term on att.TermID equals t.TermID
-
-                                        join tp in cxt.TermPlayer on p.PlayerID equals tp.PlayerID into tps
+                    join tp in cxt.TermPlayer on p.PlayerID equals tp.PlayerID into tps
                     from tp in tps.DefaultIfEmpty()
+
                     where att.AttendanceID == attendanceID
-
-
 
                     select new PlayerAttendanceSummary()
                     {
@@ -164,11 +145,9 @@ namespace NFTB.Logic.DataManagers
                         AttendanceID = pa.AttendanceID,
                         IsCasual = tp == null,
                         PlayerAttendanceID = pa.PlayerAttendanceID,
-                        // EO TODO
                         HasAttended = true,
                         FirstName = person.FirstName,
                         LastName = person.LastName,
-                        // These are left joins so if the player hasn't attended, use the termID provided...
                         TermID = att.TermID
                     }
                 ).Distinct().ToList();
@@ -184,7 +163,7 @@ namespace NFTB.Logic.DataManagers
 
         //public List<TermCasualPlayerSummary> GetTermCasualPlayers()
         //{
-        //    //using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+        //    //using (var cxt = DataStore.GetDataStore())
         //    //{
         //    //    var data = (
         //    //            from tcp in cxt.TermCasualPlayer
@@ -206,12 +185,17 @@ namespace NFTB.Logic.DataManagers
 
         public AttendanceSummary GetAttendance(int attendanceID)
         {
-            return this.GetAttendances(null).FirstOrDefault(x => x.AttendanceID == attendanceID);
+            using (var cxt = DataStore.GetDataStore())
+            {
+                var attendance = cxt.Attendance.FirstOrDefault(x => x.AttendanceID == attendanceID);
+                return this.GetAttendances(attendanceID, attendance?.TermID).FirstOrDefault();
+            }
+
         }
 
         public void DeleteAttendance(int attendanceID)
         {
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 var attendance = (from a in cxt.Attendance
                                   where a.AttendanceID == attendanceID
@@ -225,7 +209,7 @@ namespace NFTB.Logic.DataManagers
 
         public AttendanceSummary SaveAttendance(AttendanceSummary attendance)
         {
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 var data = cxt.GetOrCreateAttendance(attendance.AttendanceID);
                 if (data.IsNew)
@@ -236,7 +220,7 @@ namespace NFTB.Logic.DataManagers
                 data.AttendanceDate = attendance.AttendanceDate;
                 data.TermID = attendance.TermID;
                 cxt.SubmitChanges();
-                this.SavePlayerAttendances(data.AttendanceID, attendance.PlayerAttendances);
+                //this.SavePlayerAttendances(data.AttendanceID, attendance.PlayerAttendances);
 
                 return this.GetAttendance(data.AttendanceID);
             }
@@ -244,40 +228,68 @@ namespace NFTB.Logic.DataManagers
 
 
 
-        private List<PlayerAttendanceSummary> SavePlayerAttendances(int attendanceID, List<PlayerAttendanceSummary> playerAttendances)
+        //private List<PlayerAttendanceSummary> SavePlayerAttendances(int attendanceID, List<PlayerAttendanceSummary> playerAttendances)
+        //{
+        //    // We will get the current player attendances first so we can delete the ones not passed in...
+        //    var attendancesToBeRemoved = this.GetEmptyPlayerAttendances(attendanceID);
+        //    if (attendancesToBeRemoved == null) throw new UserException("Cannot find player attendances for the attendance");
+
+
+
+        //    // Create the PlayerAttendanceSummary items
+
+
+        //    using (var cxt = DataStore.GetDataStore())
+        //    {
+        //        foreach (var attendance in playerAttendances)
+        //        {
+        //            // Remove from current attendances
+        //            attendancesToBeRemoved.RemoveAll(x => x.PlayerID == attendance.PlayerID);
+
+        //            var data = cxt.GetOrCreatePlayerAttendance(attendance.PlayerAttendanceID);
+        //            data.AmountPaid = attendance.AmountPaid;
+        //            data.PlayerID = attendance.PlayerID;
+        //            data.AttendanceID = attendanceID;
+        //            cxt.SubmitChanges();
+        //        }
+
+        //        this.DeletePlayerAttendances(attendancesToBeRemoved);
+
+        //    }
+        //    return null;
+        //}
+
+        public PlayerAttendanceSummary SavePlayerAttendance(int attendanceID, int playerID, decimal amountPaid)
         {
-            // We will get the current player attendances first so we can delete the ones not passed in...
-            var attendancesToBeRemoved = this.GetEmptyPlayerAttendances(attendanceID);
-            if (attendancesToBeRemoved == null) throw new UserException("Cannot find player attendances for the attendance");
-
-
-
-            // Create the PlayerAttendanceSummary items
-
-
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
-                foreach (var attendance in playerAttendances)
+                var playerAttendance = cxt.PlayerAttendance.FirstOrDefault(x => x.AttendanceID == attendanceID && x.PlayerID == playerID);
+                var pa = cxt.GetOrCreatePlayerAttendance(playerAttendance?.PlayerAttendanceID);
+                if (pa.IsNew)
                 {
-                    // Remove from current attendances
-                    attendancesToBeRemoved.RemoveAll(x => x.PlayerID == attendance.PlayerID);
-
-                    var data = cxt.GetOrCreatePlayerAttendance(attendance.PlayerAttendanceID);
-                    data.AmountPaid = attendance.AmountPaid;
-                    data.PlayerID = attendance.PlayerID;
-                    data.AttendanceID = attendanceID;
-                    cxt.SubmitChanges();
+                    pa.AttendanceID = attendanceID;
+                    pa.PlayerID = playerID;
+                    pa.AmountPaid = amountPaid;
                 }
-
-                this.DeletePlayerAttendances(attendancesToBeRemoved);
-
+                cxt.SaveChanges();
+                return this.GetPlayerAttendances(pa.AttendanceID).FirstOrDefault(x => x.PlayerID == pa.PlayerID);
             }
-            return null;
+        }
+
+        public void DeletePlayerAttendance(int playerAttendanceID)
+        {
+            using (var cxt = DataStore.GetDataStore())
+            {
+                var pa = cxt.PlayerAttendance.FirstOrDefault(x => x.PlayerAttendanceID == playerAttendanceID);
+                if (pa == null) return;
+                cxt.PlayerAttendance.DeleteObject(pa);
+                cxt.SubmitChanges();
+            }
         }
 
         private void DeletePlayerAttendances(List<PlayerAttendanceSummary> attendances)
         {
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 // EO TODO We should do this bulk rather than calling per attendance
                 foreach (var attendance in attendances)

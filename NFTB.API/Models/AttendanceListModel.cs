@@ -9,5 +9,7 @@ namespace NFTB.API.Models
     public class AttendanceListModel
     {
         public List<AttendanceSummary> Attendances { get; set; }
+        public List<PlayerAttendanceSummary> PlayerAttendances { get; set; }
+
     }
 }

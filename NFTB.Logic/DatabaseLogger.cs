@@ -63,7 +63,7 @@ namespace NFTB.Logic
 		public List<SystemLog> GetLog(SystemLogTypes type, DateTime fromDate, DateTime toDate)
 		{
 			int systemLogTypeID = (int) type;
-			using(var cxt = DataStore.CreateBlackBallArchitectureContext())
+			using(var cxt = DataStore.GetDataStore())
 			{
 				var data = (
 				           	from log in cxt.SystemLog

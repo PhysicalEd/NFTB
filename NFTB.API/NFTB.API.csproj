@@ -159,7 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\AuthenticationManager.cs" />
@@ -183,7 +185,7 @@
     </Compile>
     <Compile Include="Models\RegistrationSummary.cs" />
     <Compile Include="Models\TermDetailModelResult.cs" />
-    <Compile Include="Models\AttendanceEditorModelResult.cs" />
+    <Compile Include="Models\AttendanceEditorModel.cs" />
     <Compile Include="Models\AttendanceListModel.cs" />
     <Compile Include="Models\PlayerListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,6 +199,7 @@
     <Content Include="Unity.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\nftb - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

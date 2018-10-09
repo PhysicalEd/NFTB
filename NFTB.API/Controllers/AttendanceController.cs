@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
 using NFTB.API.Models;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
@@ -16,103 +17,58 @@ namespace NFTB.API.Controllers
     public class AttendanceController : ApiController
     {
         [HttpGet]
-        public List<AttendanceSummary> AttendanceList()
+        public List<AttendanceSummary> AttendanceList(int? termID)
         {
-            //var attendanceListModel = new AttendanceListModel();
             var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-
-            var attendances = attendanceMgr.GetAttendances(null, false);
-            
-            foreach (var attendance in attendances)
-            {
-                //attendance.TermPlayerAttendances = attendanceMgr.GetTermPlayerAttendances(attendance.AttendanceID);
-            }
+            var attendances = attendanceMgr.GetAttendances(null, termID);
 
             return attendances;
         }
-
+        
         [HttpGet]
-        public AttendanceEditorModelResult AttendanceEditor(int? attendanceID)
+        public AttendanceEditorModel AttendanceEditor(int? attendanceID)
         {
-            var model = new AttendanceEditorModelResult();
+            var model = new AttendanceEditorModel();
 
             var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
             var termMgr = Dependency.Resolve<ITermManager>();
             var playerMgr = Dependency.Resolve<IPlayerManager>();
-            // Get term
-            var activeTerm = termMgr.GetLatestActiveTerm();
-            
-            // Get the attendnace
+
+            // Get the attendance
             model.Attendance = attendanceMgr.GetAttendance(attendanceID.GetValueOrDefault(0)) ?? new AttendanceSummary();
 
-            var emptyAttendances = attendanceMgr.GetEmptyPlayerAttendances(model.Attendance.AttendanceID);
-            var playerAttendances = attendanceMgr.GetPlayerAttendances(model.Attendance.AttendanceID);
-
-
-
-            foreach (var pa in playerAttendances)
+            if (model.Attendance.AttendanceID > 0)
             {
-                // Remove all attended players from the empty attendances...
-                emptyAttendances.RemoveAll(x=>x.PlayerID == pa.PlayerID);
+                // Get the player attendance
+                model.PlayerAttendances = attendanceMgr.GetPlayerAttendances(model.Attendance.AttendanceID);
+                model.PlayerList = playerMgr.GetPlayers(null, false);
             }
             
-            // Combine both unattended and attended
-            model.PlayerAttendances.AddRange(emptyAttendances);
-            model.PlayerAttendances.AddRange(playerAttendances);
-
-            foreach (var pas in model.PlayerAttendances)
-            {
-                if (!pas.IsCasual) model.TermPlayerAttendances.Add(pas);
-                if (pas.IsCasual) model.CasualPlayerAttendances.Add(pas);
-            }
-
-
-            foreach (var ea in model.PlayerAttendances)
-            {
-
-            }
-
-            // We will throw an exception if there is a value sent but cannot be found in the system
-            //if (attendanceID.HasValue && model.Attendance == null) throw new Exception();
-
-            // Load player attendances. If attendanceID is null, this will simply return empty player attendances
-            // model.PlayerAttendances = attendanceID.HasValue ? attendanceMgr.GetPlayerAttendances((int)attendanceID) : attendanceMgr.GenerateEmptyPlayerAttendances(termID);
-
-            // Load all attendances. If there is an attendanceID do not include them.
-            //var emptyAttendances = attendanceMgr.GetEmptyPlayerAttendances(termID);
-
-
-            //var playersAttended = attendanceMgr.GetPlayerAttendances(attendanceID.GetValueOrDefault(0));
-            //playersAttended.AddRange(unattended);
-            //var playerAttendances = unattended.AddRange(attended);
-            
-            // This should return empty if
-            // Go through each attendance and separate them
-            //foreach (var playerAttendance in playersAttended)
-            //{
-            //    if (playerAttendance.IsCasual) model.CasualPlayerAttendances.Add(playerAttendance);
-            //    if (!playerAttendance.IsCasual) model.TermPlayerAttendances.Add(playerAttendance);
-            //}
-
             return model;
         }
-
-        //[HttpGet]
-        //public AttendanceSummary SaveAttendance(int? attendanceID, DateTime attendanceDate, List<PlayerAttendanceSummary> playerAttendance)
-        //{
-        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-        //    var attendance = attendanceMgr.SaveAttendance(attendanceID, attendanceDate);
-        //    //var playerAttendances = 
-        //    return null;
-        //}
-
-       
+        
         [HttpPost]
         public AttendanceSummary SaveAttendance([FromBody] AttendanceSummary attendance) //, List<int> listOfNumbers)
         {
             var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
             return attendanceMgr.SaveAttendance(attendance);
+        }
 
+        [HttpPost]
+        public PlayerAttendanceSummary SavePlayerAttendance([FromBody]JObject data)
+        {
+            // EO TODO I should make extensions here or at least a reuasable function.
+            var attendanceID = data["attendanceID"].ToObject<int>();
+            var playerID = data["playerID"].ToObject<int>();
+            var amountPaid = data["amountPaid"].ToObject<decimal>();
+
+            return Dependency.Resolve<IAttendanceManager>().SavePlayerAttendance(attendanceID, playerID, amountPaid);
+        }
+
+        [HttpPost]
+        public void DeletePlayerAttendance(int playerAttendanceID)
+        {
+            Dependency.Resolve<IAttendanceManager>().DeletePlayerAttendance(playerAttendanceID);
         }
 
 

@@ -13,15 +13,16 @@ namespace NFTB.API.Controllers
     public class PlayerController : Basecontroller
     {
         [HttpGet]
-        public List<PlayerSummary> PlayerList(int? termID)
+        public List<PlayerSummary> PlayerList()
         {
-			return Dependency.Resolve<IPlayerManager>().GetPlayers(termID);
+			return Dependency.Resolve<IPlayerManager>().GetPlayers(null, null);
         }
 
         [HttpGet]
         public List<PlayerSummary> TermPlayerList(int? termID)
         {
-            return Dependency.Resolve<IPlayerManager>().GetPlayers(termID);
+            //return Dependency.Resolve<IPlayerManager>().GetTermPlayers(null, termID.GetValueOrDefault(0));
+            return null;
         }
 
         [HttpGet]

@@ -16,7 +16,7 @@ namespace NFTB.Logic.DataManagers
 		/// <param name="log"></param>
 		public void SaveLog(Contracts.Entities.Data.SystemLog log)
 		{
-			using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+			using (var cxt = DataStore.GetDataStore())
 			{
 				var data = cxt.GetOrCreateSystemLog(log.SystemLogID);
 				data.Details = log.Details;

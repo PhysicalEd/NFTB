@@ -22,7 +22,7 @@ namespace NFTB.Contracts.Entities.Data
         public DateTime AttendanceDate { get; set; }
         public bool IsDisabled { get; set; }
 	    public int ExpectedAmountFromCasuals => this.CasualsAttended * this.CasualsRate;
-	    public int ActualAmountFromCasuals => this.CasualPlayerAttendances.Sum(x => x.AmountPaid);
+	    public decimal ActualAmountFromCasuals => this.CasualPlayerAttendances.Sum(x => x.AmountPaid);
 
 	}
 }

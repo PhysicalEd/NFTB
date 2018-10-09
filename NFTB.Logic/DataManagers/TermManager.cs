@@ -18,9 +18,20 @@ namespace NFTB.Logic.DataManagers
 {
 	public partial class TermManager : ITermManager
 	{
+        /// <summary>
+        /// Gets the current term
+        /// </summary>
+        /// <returns></returns>
+	    public TermSummary GetCurrentTerm()
+	    {
+	        var terms = this.GetTerms(false);
+	        var now = DateTime.Now;
+	        var currentTerm = terms.FirstOrDefault(x => x.TermStart >= now && x.TermEnd <= now);
+	        return currentTerm;
+	    }
 	    public List<TermSummary> GetTerms(bool? includeDeleted)
 	    {
-	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        using (var cxt = DataStore.GetDataStore())
 	        {
 	            var data = (
                         from term in cxt.Term
@@ -52,7 +63,7 @@ namespace NFTB.Logic.DataManagers
 
         public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isInvoiced)
         {
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 var term = cxt.GetOrCreateTerm(termID);
                 term.TermName = termName;
@@ -74,7 +85,7 @@ namespace NFTB.Logic.DataManagers
 
         public InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid)
 	    {
-	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        using (var cxt = DataStore.GetDataStore())
 	        {
 	            var invoice = cxt.GetOrCreateInvoice(invoiceID);
 	            invoice.TermID = termID;
@@ -90,7 +101,7 @@ namespace NFTB.Logic.DataManagers
 
         public void DeleteTerm(int? termID)
         {
-            using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+            using (var cxt = DataStore.GetDataStore())
             {
                 var term = (from t in cxt.Term
                             where t.TermID == termID
@@ -116,7 +127,7 @@ namespace NFTB.Logic.DataManagers
 
         public List<InvoiceSummary> GetInvoices(int? termID)
 	    {
-	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        using (var cxt = DataStore.GetDataStore())
 	        {
 	            var data = (
                     from i in cxt.Invoice

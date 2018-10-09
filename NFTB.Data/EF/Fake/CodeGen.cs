@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 22 Oct 2017 
+// Code Generation Template developed by Ben Liebert, 8 Oct 2018 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>

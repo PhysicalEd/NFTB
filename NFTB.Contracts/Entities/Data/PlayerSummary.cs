@@ -17,11 +17,11 @@ namespace NFTB.Contracts.Entities.Data
         public bool IsDeleted { get; set; }
 
         // Term player
-        public int TermPlayerID { get; set; }
-        public int TermID { get; set; }
-        public bool IsCasual { get { return !(this.TermPlayerID > 0); } }
-        public bool BondPaid { get; set; }
-        public int? TermDue { get; set; }
-        public int? TermOwing { get; set; }
+        //public int TermPlayerID { get; set; }
+        //public int TermID { get; set; }
+        //public bool IsCasual { get { return !(this.TermPlayerID > 0); } }
+        //public bool BondPaid { get; set; }
+        //public int? TermDue { get; set; }
+        //public int? TermOwing { get; set; }
     }
 }

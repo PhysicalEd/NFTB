@@ -25,7 +25,7 @@ namespace NFTB.Logic.DataManagers
 			Dependency.Resolve<NFTB.Contracts.Validators.IEmailFormatValidator>().Validate(email);
 
 			// Now load new one for updates
-			using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+			using (var cxt = DataStore.GetDataStore())
 			{
 				var data = cxt.GetOrCreatePerson(personID);
 				data.FirstName = firstName;
@@ -48,7 +48,7 @@ namespace NFTB.Logic.DataManagers
 		{
 			personID = personID.GetValueOrDefault(0);
 
-			using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+			using (var cxt = DataStore.GetDataStore())
 			{
 				var data = (
 								from person in cxt.Person
@@ -62,7 +62,7 @@ namespace NFTB.Logic.DataManagers
 			Func<string, PersonList> func = delegate(string cacheKey)
 			{
 				var result = new PersonList();
-				using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+				using (var cxt = DataStore.GetDataStore())
 				{
 					var data = (
 					           	from person in cxt.Person
@@ -84,7 +84,7 @@ namespace NFTB.Logic.DataManagers
 
         //public void DeletePerson(int personID)
         //{
-        //       using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+        //       using (var cxt = DataStore.GetDataStore())
         //       {
         //           var player = (from p in cxt.Person
         //                         where p.PersonID == personID
@@ -98,7 +98,7 @@ namespace NFTB.Logic.DataManagers
 
 	    public LoginSummary GetTestLogin()
 	    {
-	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        using (var cxt = DataStore.GetDataStore())
 	        {
 	            var data = (
 	                from l in cxt.Login
@@ -118,7 +118,7 @@ namespace NFTB.Logic.DataManagers
 
 	    public LoginSummary SignIn(string username, string password)
 	    {
-	        using (var cxt = DataStore.CreateBlackBallArchitectureContext())
+	        using (var cxt = DataStore.GetDataStore())
 	        {
 	            var data = (
                     from l in cxt.Login

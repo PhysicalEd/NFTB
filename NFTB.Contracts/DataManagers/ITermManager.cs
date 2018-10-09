@@ -23,6 +23,7 @@ namespace NFTB.Contracts.DataManagers
         void DeleteTerm(int? termID);
         TermSummary GetLatestActiveTerm();
 
+        TermSummary GetCurrentTerm();
 
 
         InvoiceSummary GetInvoiceByTerm(int termID);
