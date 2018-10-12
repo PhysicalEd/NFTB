@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NFTB.Contracts.Repositories;
+using NFTB.Dep;
 
 namespace NFTB.Logic
 {

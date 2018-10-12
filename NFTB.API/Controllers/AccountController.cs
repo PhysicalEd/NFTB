@@ -12,6 +12,7 @@ using NFTB.API.Security;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Exceptions;
+using NFTB.Dep;
 using Login = System.Web.UI.WebControls.Login;
 
 namespace NFTB.API.Controllers

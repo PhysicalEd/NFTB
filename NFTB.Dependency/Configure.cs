@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Configuration;
 using System.Web;
-using System.Web.Configuration;
-using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using Unity;
 
-
-namespace NFTB
+namespace NFTB.Dep
 {
 
 	public interface IContainerAccessor
@@ -22,7 +17,7 @@ namespace NFTB
 		public static void Register(IUnityContainer container)
 		{
 			UnityConfigurationSection config = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
-			config.Containers.Default.Configure(container);
+			config.Configure(container);
 		}
 
 		public static T Resolve<T>()

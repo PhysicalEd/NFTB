@@ -7,6 +7,7 @@ using NFTB;
 using NFTB.API;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
+using NFTB.Dep;
 
 public class OAuthAppProvider : OAuthAuthorizationServerProvider
 {

@@ -24,12 +24,12 @@ namespace NFTB.Logic.DataManagers
         /// <returns></returns>
 	    public TermSummary GetCurrentTerm()
 	    {
-	        var terms = this.GetTerms(false);
+	        var terms = this.GetTerms();
 	        var now = DateTime.Now;
 	        var currentTerm = terms.FirstOrDefault(x => x.TermStart >= now && x.TermEnd <= now);
 	        return currentTerm;
 	    }
-	    public List<TermSummary> GetTerms(bool? includeDeleted)
+	    public List<TermSummary> GetTerms()
 	    {
 	        using (var cxt = DataStore.GetDataStore())
 	        {
@@ -38,7 +38,7 @@ namespace NFTB.Logic.DataManagers
                         select new TermSummary()
                         {
                             TermID = term.TermID,
-                            Name = term.TermName,
+                            TermName = term.TermName,
                             BondAmount = term.BondAmount,
                             CasualRate = term.CasualRate,
                             IncludeOrganizer = term.IncludeOrganizer,
@@ -50,7 +50,7 @@ namespace NFTB.Logic.DataManagers
                     );
 
                 // Filters
-                if (includeDeleted.HasValue && includeDeleted == false) data = data.Where(x => x.IsDeleted == false);
+                //if (includeDeleted.HasValue && includeDeleted == false) data = data.Where(x => x.IsDeleted == false);
 
 	            return data.ToList();
 	        }
@@ -58,14 +58,18 @@ namespace NFTB.Logic.DataManagers
 
 	    public TermSummary GetTerm(int termID)
 	    {
-	        return this.GetTerms(true).FirstOrDefault(x=>x.TermID == termID);
+	        return this.GetTerms().FirstOrDefault(x=>x.TermID == termID);
 	    }
 
-        public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isInvoiced)
+        public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool? isInvoiced)
         {
             using (var cxt = DataStore.GetDataStore())
             {
                 var term = cxt.GetOrCreateTerm(termID);
+                if (term.IsNew)
+                {
+                    
+                }
                 term.TermName = termName;
                 term.TermStart = termStart;
                 term.TermEnd = termEnd;
@@ -80,7 +84,7 @@ namespace NFTB.Logic.DataManagers
 
 	    public TermSummary GetLatestActiveTerm()
 	    {
-	        return this.GetTerms(false).FirstOrDefault(x => x.IsActive);
+	        return this.GetTerms().FirstOrDefault(x => x.IsActive);
 	    }
 
         public InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid)

@@ -11,6 +11,7 @@ using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Entities.Lists;
 using NFTB.Contracts.Enums;
+using NFTB.Dep;
 
 
 namespace NFTB.Logic.DataManagers

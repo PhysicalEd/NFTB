@@ -5,6 +5,7 @@ using System.Text;
 using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Enums;
 using NFTB.Contracts.Security;
+using NFTB.Dep;
 
 namespace NFTB.Logic
 {

@@ -12,14 +12,14 @@ namespace NFTB.Contracts.DataManagers
         /// <summary>
         /// Saves this person to the data store
         /// </summary>
-        List<TermSummary> GetTerms(bool? includeDeleted);
+        List<TermSummary> GetTerms();
 
         InvoiceSummary GetInvoice(int invoiceID);
 
 
         TermSummary GetTerm(int termID);
 
-        TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isInvoice);
+        TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool? isInvoice);
         void DeleteTerm(int? termID);
         TermSummary GetLatestActiveTerm();
 

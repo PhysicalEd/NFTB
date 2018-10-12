@@ -7,6 +7,7 @@ using System.Web.Http;
 using NFTB.API.Models;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
+using NFTB.Dep;
 
 namespace NFTB.API.Controllers
 {

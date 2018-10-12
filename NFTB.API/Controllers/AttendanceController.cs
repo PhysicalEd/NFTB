@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using NFTB.API.Models;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
+using NFTB.Dep;
 using NFTB.Logic.DataManagers;
 
 namespace NFTB.API.Controllers
@@ -55,14 +56,9 @@ namespace NFTB.API.Controllers
         }
 
         [HttpPost]
-        public PlayerAttendanceSummary SavePlayerAttendance([FromBody]JObject data)
+        public PlayerAttendanceSummary SavePlayerAttendance([FromBody]PlayerAttendanceSummary playerAttendance)
         {
-            // EO TODO I should make extensions here or at least a reuasable function.
-            var attendanceID = data["attendanceID"].ToObject<int>();
-            var playerID = data["playerID"].ToObject<int>();
-            var amountPaid = data["amountPaid"].ToObject<decimal>();
-
-            return Dependency.Resolve<IAttendanceManager>().SavePlayerAttendance(attendanceID, playerID, amountPaid);
+            return Dependency.Resolve<IAttendanceManager>().SavePlayerAttendance(playerAttendance.AttendanceID, playerAttendance.PlayerID, playerAttendance.AmountPaid);
         }
 
         [HttpPost]

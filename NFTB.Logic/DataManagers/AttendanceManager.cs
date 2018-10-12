@@ -13,6 +13,7 @@ using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Entities.Lists;
 using NFTB.Contracts.Enums;
 using NFTB.Contracts.Exceptions;
+using NFTB.Dep;
 
 
 namespace NFTB.Logic.DataManagers

@@ -7,24 +7,26 @@ using System.Web.Http;
 using NFTB.API.Models;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
+using NFTB.Dep;
 
 namespace NFTB.API.Controllers
 {
     public class TermController : ApiController
     {
-        [HttpGet]
-        public List<TermSummary> TermList(bool? includeDeleted)
+        [HttpPost]
+        public TermListModel TermList(TermListFilters filters)
         {
-            var result = Dependency.Resolve<ITermManager>().GetTerms(includeDeleted);
-            return result;
+            var model = new TermListModel();
+            model.Terms = Dependency.Resolve<ITermManager>().GetTerms();
+            return model;
         }
 
         [HttpGet]
-        public TermSummary ActiveTerm()
+        public TermSummary TermEditor(int? termID)
         {
-            return Dependency.Resolve<ITermManager>().GetTerms(false).FirstOrDefault(x => x.IsActive);
+            var term = Dependency.Resolve<ITermManager>().GetTerm(termID.GetValueOrDefault(0)) ?? new TermSummary();
+            return term;
         }
-
 
         [HttpGet]
         public void DeleteTerm(int? termID)
@@ -32,12 +34,12 @@ namespace NFTB.API.Controllers
             Dependency.Resolve<ITermManager>().DeleteTerm(termID);
         }
 
-        [HttpGet]
-        public TermSummary SaveTerm(int? termID, string termName, DateTime termStart, DateTime? termEnd, int bondAmount, int casualRate, bool includeOrganizer, bool isDeleted, bool isActive, bool isInvoiced)
+        [HttpPost]
+        public TermSummary SaveTerm(TermSummary term)
         {
             var termMgr = Dependency.Resolve<ITermManager>();
             // Save term
-            return termMgr.SaveTerm(termID, termName, termStart, termEnd, bondAmount, casualRate, includeOrganizer, isInvoiced);
+            return termMgr.SaveTerm(term.TermID, term.TermName, term.TermStart, term.TermEnd, term.BondAmount, term.CasualRate, term.IncludeOrganizer, null);
         }
 
         [HttpGet]

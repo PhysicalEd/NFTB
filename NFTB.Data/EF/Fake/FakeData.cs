@@ -4,6 +4,7 @@ using NFTB.Contracts.Cache;
 using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Repositories;
+using NFTB.Dep;
 
 namespace NFTB.Data.EF.Fake {
     
