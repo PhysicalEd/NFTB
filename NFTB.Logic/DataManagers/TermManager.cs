@@ -79,7 +79,6 @@ namespace NFTB.Logic.DataManagers
                 cxt.SubmitChanges();
                 return this.GetTerm(term.TermID);
             }
-
         }
 
 	    public TermSummary GetLatestActiveTerm()
