@@ -68,7 +68,6 @@ namespace NFTB.Logic.DataManagers
                 var term = cxt.GetOrCreateTerm(termID);
                 if (term.IsNew)
                 {
-                    
                 }
                 term.TermName = termName;
                 term.TermStart = termStart;
