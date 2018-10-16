@@ -89,12 +89,23 @@ namespace NFTB.Logic.DataManagers
         {
             using (var cxt = DataStore.GetDataStore())
             {
-                var player = (from p in cxt.Player
-                            where p.PlayerID == playerID
-                            select p
-                    ).FirstOrDefault();
+                var player = cxt.Player.FirstOrDefault(x => x.PlayerID == playerID);
                 if (player == null) return;
-                player.IsDeleted = true;
+
+                // Check if this player has been either marked as a term player before or has been marked in attendances
+                var hasBeenAAtermPlayerBefore = cxt.TermPlayer.Any(x => x.PlayerID == player.PlayerID);
+                var hasAttendances = cxt.PlayerAttendance.Any(x => x.PlayerID == playerID);
+
+                if (hasBeenAAtermPlayerBefore || hasAttendances)
+                {
+                    player.IsDeleted = true;
+
+                }
+                else
+                {
+                    cxt.Player.DeleteObject(player);
+                }
+
                 cxt.SubmitChanges();
             }
 

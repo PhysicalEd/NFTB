@@ -13,10 +13,33 @@ namespace NFTB.API.Controllers
 {
     public class PlayerController : Basecontroller
     {
-        [HttpGet]
-        public List<PlayerSummary> PlayerList()
+        [HttpPost]
+        public PlayerListModel PlayerList()
         {
-			return Dependency.Resolve<IPlayerManager>().GetPlayers(null, null);
+            var model = new PlayerListModel();
+            model.Players = Dependency.Resolve<IPlayerManager>().GetPlayers(null, null);
+            return model;
+        }
+
+        [HttpGet]
+        public PlayerSummary PlayerEditor(int? playerID)
+        {
+            var player = Dependency.Resolve<IPlayerManager>().GetPlayer(playerID.GetValueOrDefault(0)) ?? new PlayerSummary();
+            return player;
+        }
+
+        [HttpPost]
+        public PlayerSummary SavePlayer(PlayerSummary player)
+        {
+            var playerMgr = Dependency.Resolve<IPlayerManager>();
+            // Save player
+            return playerMgr.SavePlayer(player.PlayerID, player.FirstName, player.LastName, player.Phone, player.Email);
+        }
+
+        [HttpGet]
+        public void DeletePlayer(int playerID)
+        {
+            Dependency.Resolve<IPlayerManager>().DeletePlayer(playerID);
         }
 
         [HttpGet]
@@ -26,20 +49,7 @@ namespace NFTB.API.Controllers
             return null;
         }
 
-        [HttpGet]
-        public PlayerSummary SavePlayer(int? playerID, string firstName, string lastName, string phone, string email)
-        {
-            var playerMgr = Dependency.Resolve<IPlayerManager>();
-            // Save player
-            return playerMgr.SavePlayer(playerID, firstName, lastName, phone, email);
-        }
 
-        [HttpGet]
-        public void DeletePlayer(int playerID)
-        {
-            // Check if player is deleteable..ieE. not being used in other tables..
-            Dependency.Resolve<IPlayerManager>().DeletePlayer(playerID);
-        }
 
 
 

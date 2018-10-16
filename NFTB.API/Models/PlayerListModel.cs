@@ -7,6 +7,6 @@ namespace NFTB.API.Models
 {
     public class PlayerListModel
     {
-        public List<TermPlayerSummary> TermPlayers { get; set; }
+        public List<PlayerSummary> Players { get; set; }
     }
 }

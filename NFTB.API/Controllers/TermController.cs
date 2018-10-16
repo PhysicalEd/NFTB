@@ -29,7 +29,7 @@ namespace NFTB.API.Controllers
         }
 
         [HttpGet]
-        public void DeleteTerm(int? termID)
+        public void DeleteTerm(int termID)
         {
             Dependency.Resolve<ITermManager>().DeleteTerm(termID);
         }

@@ -18,10 +18,9 @@ namespace NFTB.Contracts.Entities.Data
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public bool IsInvoiced { get; set; }
-        public string TermStartStr { get; set; }
-	    public string TermStartValue => this.TermStart.ToString("MMMM d yyyy");
-	    public string TermEndValue => TermEnd?.ToString("MMMM d yyyy") ?? "";
-	    public string TermRange => string.Format("{0} - {1}", this.TermStartValue, this.TermEndValue);
+	    public string TermStartDescription => this.TermStart.ToString("MMMM d yyyy");
+	    public string TermEndDescription => TermEnd?.ToString("MMMM d yyyy") ?? "";
+	    public string TermRangeDescription => string.Format("{0} - {1}", this.TermStartDescription, this.TermEndDescription);
 
 
 
