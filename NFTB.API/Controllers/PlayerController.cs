@@ -59,6 +59,7 @@ namespace NFTB.API.Controllers
             // Save player
             return playerMgr.SavePlayer(player.PlayerID, player.FirstName, player.LastName, player.Phone, player.Email);
         }
+
         [Route("playerlist/{playerID}")]
         [HttpPut]
         public PlayerSummary SavePlayer(int playerID, [FromBody]PlayerSummary player)
@@ -80,12 +81,5 @@ namespace NFTB.API.Controllers
             //return Dependency.Resolve<IPlayerManager>().GetTermPlayers(null, termID.GetValueOrDefault(0));
             return null;
         }
-
-
-
-
-
-
-
     }
 }
