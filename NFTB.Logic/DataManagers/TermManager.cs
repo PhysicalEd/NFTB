@@ -13,12 +13,39 @@ using NFTB.Contracts.Entities.Data;
 using NFTB.Contracts.Entities.Lists;
 using NFTB.Contracts.Enums;
 using NFTB.Contracts.Exceptions;
+using NFTB.Dep;
 
 
 namespace NFTB.Logic.DataManagers
 {
     public partial class TermManager : ITermManager
     {
+        public TermPlayerSummary SaveTermPlayer(int? termPlayerID, int playerID, int termID, bool bondPaid)
+        {
+            using (var cxt = DataStore.GetDataStore())
+            {
+                var termPlayer = cxt.GetOrCreateTermPlayer(termPlayerID);
+
+                // Check if player and term exists
+                var player = Dependency.Resolve<IPlayerManager>().GetPlayer(playerID);
+                if (player == null) throw new UserException("Unable to load the player from the datastore. Please add this person first before saving him as a term player");
+
+                var term = this.GetTerm(termID);
+                if (term == null) throw new UserException("Unable to load the term from the datastore");
+
+
+                termPlayer.TermID = term.TermID;
+                termPlayer.PlayerID = player.PlayerID;
+
+                termPlayer.BondPaid = bondPaid;
+
+                cxt.SubmitChanges();
+            }
+
+
+            return null;
+        }
+
         /// <summary>
         /// Gets the current term
         /// </summary>

@@ -30,6 +30,7 @@ namespace NFTB.Contracts.DataManagers
 
         InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid);
 
+        TermPlayerSummary SaveTermPlayer(int? termPlayerID, int playerID, int termID, bool bondPaid);
 
     }
 }

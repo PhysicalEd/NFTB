@@ -42,6 +42,22 @@ namespace NFTB.API.Controllers
             return termMgr.SaveTerm(term.TermID, term.TermName, term.TermStart, term.TermEnd, term.BondAmount, term.CasualRate, term.IncludeOrganizer, null);
         }
 
+        [HttpPost]
+        public TermPlayerSummary SaveTermPlayer(TermPlayerSummary termPlayer)
+        {
+            Dependency.Resolve<ITermManager>().SaveTermPlayer(termPlayer.TermPlayerID, termPlayer.PlayerID, termPlayer.TermID, termPlayer.BondPaid);
+            //// Check if player exists first
+            //var player = Dependency.Resolve<IPlayerManager>().GetPlayer(termPlayer.PlayerID);
+
+            return null;
+        }
+
+        [HttpGet]
+        public void DeleteTermPlayer(int termPlayerID)
+        {
+            
+        }
+
         [HttpGet]
         public InvoiceSummary SaveInvoice(int? invoiceID, int termID, DateTime invoiceDate, int totalAmount, int numberOfSessions, DateTime? whenPaid)
         {
