@@ -155,8 +155,9 @@ namespace NFTB.Logic.DataManagers
 
                 // If there are existing attendances, we simply mark the term deleted, if not, we can delete altogether
 
-                var attendances = cxt.Attendance.Where(x => x.TermID == termID);
-                if (attendances.Any())
+                var attendances = cxt.Attendance.Where(x => x.TermID == term.TermID);
+                var termPlayer = cxt.TermPlayer.Where(x=>x.TermID == term.TermID);
+                if (attendances.Any() || termPlayer.Any())
                 {
                     term.IsDeleted = true;
                 }

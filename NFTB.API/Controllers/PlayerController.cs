@@ -12,17 +12,6 @@ using NFTB.Dep;
 
 namespace NFTB.API.Controllers
 {
-    public class TestFilters
-    {
-        public int TestID { get; set; }
-        public string Search { get; set; }
-    }
-
-    public class BodyFilters
-    {
-        public int FilterID { get; set; }
-        public string Search { get; set; }
-    }
     [RoutePrefix("api/player")]
     public class PlayerController : Basecontroller
     {
@@ -36,6 +25,7 @@ namespace NFTB.API.Controllers
         }
 
         [Route("playerlist/{playerid}")]
+        [HttpGet]
         public PlayerSummary PlayerDetails(int playerID)
         {
             var player = Dependency.Resolve<IPlayerManager>().GetPlayer(playerID);
@@ -43,13 +33,13 @@ namespace NFTB.API.Controllers
             return player;
         }
 
-        [Route("playerlist/{playerid}")]
-        [HttpGet]
-        public PlayerSummary PlayerEditor(int? playerID)
-        {
-            var player = Dependency.Resolve<IPlayerManager>().GetPlayer(playerID.GetValueOrDefault(0)) ?? new PlayerSummary();
-            return player;
-        }
+        //[Route("playerlist/{playerid}")]
+        //[HttpGet]
+        //public PlayerSummary PlayerEditor(int? playerID)
+        //{
+        //    var player = Dependency.Resolve<IPlayerManager>().GetPlayer(playerID.GetValueOrDefault(0)) ?? new PlayerSummary();
+        //    return player;
+        //}
 
         [Route("playerlist")]
         [HttpPost]
@@ -65,6 +55,9 @@ namespace NFTB.API.Controllers
         public PlayerSummary SavePlayer(int playerID, [FromBody]PlayerSummary player)
         {
             player.PlayerID = playerID;
+            // We now need to check if the player exists first...
+            var existingPlayer = Dependency.Resolve<IPlayerManager>().GetPlayer(player.PlayerID);
+            if (existingPlayer == null) throw new UserException("The player could not be retrieved from the datastore");
             return this.SavePlayer(player);
         }
 

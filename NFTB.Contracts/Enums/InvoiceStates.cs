@@ -10,6 +10,5 @@ namespace NFTB.Contracts.Enums
 		NA = 0,
         Received = 1,
         Paid = 2,
-
 	}
 }

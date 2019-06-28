@@ -7,13 +7,17 @@ using System.Web.Http;
 using NFTB.API.Models;
 using NFTB.Contracts.DataManagers;
 using NFTB.Contracts.Entities.Data;
+using NFTB.Contracts.Exceptions;
 using NFTB.Dep;
 
 namespace NFTB.API.Controllers
 {
+    [RoutePrefix("api/term")]
+
     public class TermController : ApiController
     {
-        [HttpPost]
+        [Route("termlist")]
+        [HttpGet]
         public TermListModel TermList(TermListFilters filters)
         {
             var model = new TermListModel();
@@ -21,25 +25,39 @@ namespace NFTB.API.Controllers
             return model;
         }
 
+        [Route("termlist/{termID}")]
         [HttpGet]
-        public TermSummary TermEditor(int? termID)
+        public TermSummary TermDetails(int? termID)
         {
             var term = Dependency.Resolve<ITermManager>().GetTerm(termID.GetValueOrDefault(0)) ?? new TermSummary();
             return term;
         }
 
-        [HttpGet]
+        [Route("termlist/{termID}")]
+        [HttpDelete]
         public void DeleteTerm(int termID)
         {
             Dependency.Resolve<ITermManager>().DeleteTerm(termID);
         }
 
+        [Route("termlist")]
         [HttpPost]
-        public TermSummary SaveTerm(TermSummary term)
+        public TermSummary SaveTerm([FromBody]TermSummary term)
         {
             var termMgr = Dependency.Resolve<ITermManager>();
             // Save term
             return termMgr.SaveTerm(term.TermID, term.TermName, term.TermStart, term.TermEnd, term.BondAmount, term.CasualRate, term.IncludeOrganizer, null);
+        }
+
+        [Route("termlist/{termID}")]
+        [HttpPut]
+        public TermSummary SaveTerm(int termID, [FromBody]TermSummary term)
+        {
+            term.TermID = termID;
+            // We now need to check if the term exists first...
+            var existingTerm = Dependency.Resolve<ITermManager>().GetTerm(term.TermID);
+            if (existingTerm == null) throw new UserException("The term could not be retrieved from the datastore ");
+            return this.SaveTerm(term);
         }
 
         [HttpPost]
@@ -52,7 +70,7 @@ namespace NFTB.API.Controllers
             return null;
         }
 
-        [HttpGet]
+        [HttpDelete]
         public void DeleteTermPlayer(int termPlayerID)
         {
             
@@ -66,42 +84,43 @@ namespace NFTB.API.Controllers
             return termMgr.SaveInvoice(invoiceID, termID, invoiceDate, totalAmount, numberOfSessions, whenPaid);
         }
 
-        [HttpGet]
-        public TermDetailModelResult TermDetails(int termID)
-        {
-            var model = new TermDetailModelResult();
+        //[Route("termdetail/{termID}")]
+        //[HttpGet]
+        //public TermDetailModelResult TermDetails(int termID)
+        //{
+        //    var model = new TermDetailModelResult();
 
-            var termMgr = Dependency.Resolve<ITermManager>();
-            var playerMgr = Dependency.Resolve<IPlayerManager>();
-            var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
+        //    var termMgr = Dependency.Resolve<ITermManager>();
+        //    var playerMgr = Dependency.Resolve<IPlayerManager>();
+        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
 
-            model.Term = termMgr.GetTerm(termID);
-            model.TermPlayers = playerMgr.GetPlayers(null, null);
-            model.Invoice = termMgr.GetInvoiceByTerm(termID);
-            model.Attendances = attendanceMgr.GetAttendances(null, termID);
+        //    model.Term = termMgr.GetTerm(termID);
+        //    model.TermPlayers = playerMgr.GetPlayers(null, null);
+        //    model.Invoice = termMgr.GetInvoiceByTerm(termID);
+        //    model.Attendances = attendanceMgr.GetAttendances(null, termID);
 
-            if (model.Attendances.Any())
-            {
-                foreach (var attendance in model.Attendances)
-                {
-                    attendance.PlayerAttendances = attendanceMgr.GetPlayerAttendances(attendance.AttendanceID);
-                    attendance.CasualPlayerAttendances = attendance.PlayerAttendances.Where(x => x.IsCasual).ToList();
+        //    if (model.Attendances.Any())
+        //    {
+        //        foreach (var attendance in model.Attendances)
+        //        {
+        //            attendance.PlayerAttendances = attendanceMgr.GetPlayerAttendances(attendance.AttendanceID);
+        //            attendance.CasualPlayerAttendances = attendance.PlayerAttendances.Where(x => x.IsCasual).ToList();
                     
-                    //attendance.ActualAmountFromCasuals = attendance.CasualsAttended * attendance.CasualPlayerAttendances.Sum(x=>x.AmountPaid);
-                    //attendance.ExpectedAmountFromCasuals = attendance.CasualsAttended * attendance.CasualsRate;
-                }
-            }
+        //            //attendance.ActualAmountFromCasuals = attendance.CasualsAttended * attendance.CasualPlayerAttendances.Sum(x=>x.AmountPaid);
+        //            //attendance.ExpectedAmountFromCasuals = attendance.CasualsAttended * attendance.CasualsRate;
+        //        }
+        //    }
 
-            model.ExpectedAmountFromCasuals = model.Attendances.Sum(x => x.ExpectedAmountFromCasuals);
-            model.ActualAmountFromCasuals = model.Attendances.Sum(x => x.ActualAmountFromCasuals);
-            model.NumberOfTermPlayers = model.TermPlayers.Count;
-            //model.NumberOfSessions
+        //    model.ExpectedAmountFromCasuals = model.Attendances.Sum(x => x.ExpectedAmountFromCasuals);
+        //    model.ActualAmountFromCasuals = model.Attendances.Sum(x => x.ActualAmountFromCasuals);
+        //    model.NumberOfTermPlayers = model.TermPlayers.Count;
+        //    //model.NumberOfSessions
 
-            //model.ActualAmountFromCasuals = model.CasualPlayerAttendancesForTerm.Count * model.Term.CasualRate;
-            //model.TotalAmountOwingFromTermPlayers = model.TermPlayers.Count * model.Term. 
+        //    //model.ActualAmountFromCasuals = model.CasualPlayerAttendancesForTerm.Count * model.Term.CasualRate;
+        //    //model.TotalAmountOwingFromTermPlayers = model.TermPlayers.Count * model.Term. 
 
-            return model;
-        }
+        //    return model;
+        //}
 
         [HttpGet]
         public InvoiceSummary InvoiceDetails(int invoiceID)

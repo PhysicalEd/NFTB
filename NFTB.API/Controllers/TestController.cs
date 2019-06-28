@@ -14,9 +14,10 @@ namespace NFTB.API.Controllers
 {
     public class TestController : ApiController
     {
+        [HttpGet]
         public string Test()
         {
-            return "Test successful";
+            return "OK";
         }
     }
 

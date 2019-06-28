@@ -15,8 +15,10 @@ using NFTB.Logic.DataManagers;
 
 namespace NFTB.API.Controllers
 {
+
     public class AttendanceController : ApiController
     {
+        [Route("api/term/{termID}/attendancelist")]
         [HttpGet]
         public List<AttendanceSummary> AttendanceList(int? termID)
         {
@@ -25,9 +27,10 @@ namespace NFTB.API.Controllers
 
             return attendances;
         }
-        
+
+        [Route("api/attendance/attendancelist/{attendanceID}")]
         [HttpGet]
-        public AttendanceEditorModel AttendanceEditor(int? attendanceID)
+        public AttendanceEditorModel AttendanceDetails(int? attendanceID)
         {
             var model = new AttendanceEditorModel();
 
@@ -47,13 +50,25 @@ namespace NFTB.API.Controllers
             
             return model;
         }
-        
-        [HttpPost]
-        public AttendanceSummary SaveAttendance([FromBody] AttendanceSummary attendance) //, List<int> listOfNumbers)
-        {
-            var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-            return attendanceMgr.SaveAttendance(attendance);
-        }
+
+        //[Route("api/attendance/attendancelist")]
+        //[HttpPost]
+        //public AttendanceSummary SaveAttendance([FromBody] AttendanceSummary attendance) //, List<int> listOfNumbers)
+        //{
+        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
+        //    return attendanceMgr.SaveAttendance(attendance);
+        //}
+
+        //[Route("api/term/{termID}/attendance/")]
+        //[HttpPut]
+        //public AttendanceSummary SaveAttendance(int termID, int attendanceID, [FromBody]AttendanceSummary attendance)
+        //{
+        //    term.TermID = termID;
+        //    // We now need to check if the term exists first...
+        //    var existingTerm = Dependency.Resolve<ITermManager>().GetTerm(term.TermID);
+        //    if (existingTerm == null) throw new UserException("The term could not be retrieved from the datastore ");
+        //    return this.SaveTerm(term);
+        //}
 
         [HttpPost]
         public PlayerAttendanceSummary SavePlayerAttendance([FromBody]PlayerAttendanceSummary playerAttendance)
