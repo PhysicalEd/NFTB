@@ -18,130 +18,20 @@ namespace NFTB.API.Controllers
 
     public class AttendanceController : ApiController
     {
-        [Route("api/term/{termID}/attendancelist")]
-        [HttpGet]
-        public List<AttendanceSummary> AttendanceList(int? termID)
-        {
-            var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-            var attendances = attendanceMgr.GetAttendances(null, termID);
-
-            return attendances;
-        }
-
-        [Route("api/attendance/attendancelist/{attendanceID}")]
-        [HttpGet]
-        public AttendanceEditorModel AttendanceDetails(int? attendanceID)
-        {
-            var model = new AttendanceEditorModel();
-
-            var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-            var termMgr = Dependency.Resolve<ITermManager>();
-            var playerMgr = Dependency.Resolve<IPlayerManager>();
-
-            // Get the attendance
-            model.Attendance = attendanceMgr.GetAttendance(attendanceID.GetValueOrDefault(0)) ?? new AttendanceSummary();
-
-            if (model.Attendance.AttendanceID > 0)
-            {
-                // Get the player attendance
-                model.PlayerAttendances = attendanceMgr.GetPlayerAttendances(model.Attendance.AttendanceID);
-                model.PlayerList = playerMgr.GetPlayers(null, false);
-            }
-            
-            return model;
-        }
-
-        //[Route("api/attendance/attendancelist")]
-        //[HttpPost]
-        //public AttendanceSummary SaveAttendance([FromBody] AttendanceSummary attendance) //, List<int> listOfNumbers)
-        //{
-        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-        //    return attendanceMgr.SaveAttendance(attendance);
-        //}
-
-        //[Route("api/term/{termID}/attendance/")]
-        //[HttpPut]
-        //public AttendanceSummary SaveAttendance(int termID, int attendanceID, [FromBody]AttendanceSummary attendance)
-        //{
-        //    term.TermID = termID;
-        //    // We now need to check if the term exists first...
-        //    var existingTerm = Dependency.Resolve<ITermManager>().GetTerm(term.TermID);
-        //    if (existingTerm == null) throw new UserException("The term could not be retrieved from the datastore ");
-        //    return this.SaveTerm(term);
-        //}
 
         [HttpPost]
-        public PlayerAttendanceSummary SavePlayerAttendance([FromBody]PlayerAttendanceSummary playerAttendance)
+        public AttendanceSummary SavePlayerAttendance([FromBody]AttendanceSummary attendance)
         {
-            return Dependency.Resolve<IAttendanceManager>().SavePlayerAttendance(playerAttendance.AttendanceID, playerAttendance.PlayerID, playerAttendance.AmountPaid);
+            return Dependency.Resolve<IAttendanceManager>().SaveAttendance(attendance.SessionID, attendance.PlayerID, attendance.AmountPaid);
         }
 
         [HttpPost]
-        public void DeletePlayerAttendance(int playerAttendanceID)
+        public void DeleteAttendance(int playerAttendanceID)
         {
-            Dependency.Resolve<IAttendanceManager>().DeletePlayerAttendance(playerAttendanceID);
+            Dependency.Resolve<IAttendanceManager>().DeleteAttendance(playerAttendanceID);
         }
 
 
-        //[HttpGet]
-        //public List<PlayerAttendanceSummary> TermPlayerAttendanceList()
-        //{
-        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-
-        //    var attendances = attendanceMgr.GetAttendances();
-        //    foreach (var attendance in attendances)
-        //    {
-        //        attendance.TermPlayerAttendances = attendanceMgr.GetTermPlayerAttendances(attendance.AttendanceID);
-        //    }
-
-        //    return attendances;
-        //}
-
-
-        //public AttendanceEditorModelResult AttendanceEditor(int? attendanceID)
-        //{
-        //    var attendanceMgr = new AttendanceManager();
-        //    var playerMgr = new PlayerManager();
-        //    var attendanceEditorModel = new AttendanceEditorModelResult();
-
-        //    attendanceEditorModel.PlayerList = playerMgr.GetPlayers(null);
-
-        //    if (!attendanceID.HasValue)
-        //    {
-        //        foreach (var player in attendanceEditorModel.PlayerList)
-        //        {
-
-        //            var playerAttendance = new PlayerAttendanceSummary()
-        //            {
-        //                PlayerID = player.PlayerID,
-        //                DisplayName = player.DisplayName
-        //            };
-        //            attendanceEditorModel.PlayerAttendances.Add(playerAttendance);
-        //        }
-
-        //    }
-
-        //    //attendanceEditorModel.PlayerAttendances
-        //    return attendanceEditorModel;
-        //}
-
-        //[HttpGet]
-        //public void DeleteAttendance(int attendanceID)
-        //{
-        //    Dependency.Resolve<IAttendanceManager>().DeleteAttendance(attendanceID);
-        //}
-
-        //[HttpGet]
-        //public List<PlayerAttendanceSummary> PlayerAttendanceList(int? attendanceID)
-        //{
-        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
-
-
-        //    var attendance = attendanceMgr.GetAttendance(attendanceID.GetValueOrDefault(0));
-        //    if (attendance == null) attendanceMgr.Save
-
-        //    return Dependency.Resolve<IAttendanceManager>().GetPlayerAttendances(attendanceID);
-        //}
 
     }
 

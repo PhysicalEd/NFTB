@@ -211,6 +211,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -226,7 +227,7 @@
     <Compile Include="Models\TermListModel.cs" />
     <Compile Include="Models\RegistrationSummary.cs" />
     <Compile Include="Models\TermDetailModelResult.cs" />
-    <Compile Include="Models\AttendanceEditorModel.cs" />
+    <Compile Include="Models\SessionEditorModel.cs" />
     <Compile Include="Models\AttendanceListModel.cs" />
     <Compile Include="Models\PlayerListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

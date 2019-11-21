@@ -13,8 +13,8 @@ namespace NFTB.API.Models
         public int NumberOfTermPlayers { get; set; }
 
         public List<AttendanceSummary> Attendances { get; set; }
-        public List<PlayerAttendanceSummary> PlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
-        public List<PlayerAttendanceSummary> CasualPlayerAttendancesForTerm { get; set; } = new List<PlayerAttendanceSummary>();
+        public List<AttendanceSummary> PlayerAttendances { get; set; } = new List<AttendanceSummary>();
+        public List<AttendanceSummary> CasualPlayerAttendancesForTerm { get; set; } = new List<AttendanceSummary>();
         public int ExpectedAmountFromCasuals { get; set; }
         public decimal ActualAmountFromCasuals { get; set; }
         public int TotalAmountOwingFromTermPlayers { get; set; }

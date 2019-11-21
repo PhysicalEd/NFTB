@@ -20,97 +20,73 @@ namespace NFTB.Logic.DataManagers
 {
     public partial class AttendanceManager : IAttendanceManager
     {
-        public List<AttendanceSummary> GetAttendances(int? attendanceID, int? termID)
-        {
-            using (var cxt = DataStore.GetDataStore())
-            {
-                var data = (
-                        from a in cxt.Attendance
-                        join t in cxt.Term on a.TermID equals t.TermID
-                        select new AttendanceSummary()
-                        {
-                            AttendanceID = a.AttendanceID,
-                            TermID = a.TermID,
-                            TermName = t.TermName,
-                            AttendanceDate = a.AttendanceDate,
-                            IsDisabled = a.IsDisabled,
-                            CasualsRate = t.CasualRate,
-                        }
-                    ).ToList();
+        //public List<AttendanceSummary> GetEmptyPlayerAttendances(int sessionID)
+        //{
+        //    // Grab the latest active term if there is no sessionID specified
+        //    var latestTermID = Dependency.Resolve<ITermManager>().GetLatestActiveTerm()?.TermID;
+        //    var sessionManager = Dependency.Resolve<ISessionManager>();
+        //    var session = sessionManager.GetSessions(sessionID);
 
-                // Filters
-                if (termID.HasValue) data = data.Where(x => x.TermID == termID).ToList();
-                if (attendanceID.HasValue) data = data.Where(x => x.AttendanceID == attendanceID).ToList();
-                return data;
-            }
-        }
+        //    //if (session == null) throw new UserException("Cannot find session");
 
-        public List<PlayerAttendanceSummary> GetEmptyPlayerAttendances(int attendanceID)
-        {
-            // Grab the latest active term if there is no attendanceID specified
-            var latestTermID = Dependency.Resolve<ITermManager>().GetLatestActiveTerm()?.TermID;
-            var attendance = this.GetAttendance(attendanceID);
+        //    // Use latest term ID if there is no session. IE. it is a new session
+        //    var termID = session?.TermID ?? latestTermID;
 
-            //if (attendance == null) throw new UserException("Cannot find attendance");
+        //    using (var cxt = DataStore.GetDataStore())
+        //    {
+        //        var data = (
+        //            from p in cxt.Player
 
-            // Use latest term ID if there is no attendance. IE. it is a new attendance
-            var termID = attendance?.TermID ?? latestTermID;
+        //            join person in cxt.Person on p.PersonID equals person.PersonID
 
-            using (var cxt = DataStore.GetDataStore())
-            {
-                var data = (
-                    from p in cxt.Player
+        //            join tp in cxt.TermPlayer on p.PlayerID equals tp.PlayerID into tps
+        //            from tp in tps.DefaultIfEmpty()
 
-                    join person in cxt.Person on p.PersonID equals person.PersonID
+        //            select new AttendanceSummary()
+        //            {
+        //                // Set defaults
+        //                SessionID = session.SessionID,
+        //                TermID = termID,
+        //                PlayerID = p.PlayerID,
+        //                FirstName = person.FirstName,
+        //                LastName = person.LastName,
+        //                HasAttended = false,
+        //                IsCasual = tp == null
+        //            }
+        //        ).Distinct().ToList();
 
-                    join tp in cxt.TermPlayer on p.PlayerID equals tp.PlayerID into tps
-                    from tp in tps.DefaultIfEmpty()
+        //        return data.Where(x => x.TermID == termID || x.TermID == null).ToList();
+        //    }
+        //}
 
-                    select new PlayerAttendanceSummary()
-                    {
-                        // Set defaults
-                        AttendanceID = attendance.AttendanceID,
-                        TermID = termID,
-                        PlayerID = p.PlayerID,
-                        FirstName = person.FirstName,
-                        LastName = person.LastName,
-                        HasAttended = false,
-                        IsCasual = tp == null
-                    }
-                ).Distinct().ToList();
-
-                return data.Where(x => x.TermID == termID || x.TermID == null).ToList();
-            }
-        }
-
-        public List<PlayerAttendanceSummary> GetAttendedPlayerAttendances(int attendanceID)
+        public List<AttendanceSummary> GetAttendedPlayerAttendances(int attendanceID)
         {
             // We will return a list of both players attended and not attended
             using (var cxt = DataStore.GetDataStore())
             {
-                //var playersAttended = cxt.PlayerAttendance.Where(x => x.AttendanceID == attendanceID);
+                //var playersAttended = cxt.PlayerAttendance.Where(x => x.SessionID == sessionID);
                 var data = (
                     from p in cxt.Player
 
-                    join pa in cxt.PlayerAttendance on p.PlayerID equals pa.PlayerID into pas
+                    join pa in cxt.Attendance on p.PlayerID equals pa.PlayerID into pas
                     //join pa in playersAttended on p.PlayerID equals pa.PlayerID into pas
                     from pa in pas.DefaultIfEmpty()
 
-                    join att in cxt.Attendance on pa.AttendanceID equals att.AttendanceID into atts
+                    join att in cxt.Session on pa.AttendanceID equals att.SessionID into atts
                     from att in atts.DefaultIfEmpty()
 
                     join t in cxt.Term on att.TermID equals t.TermID into ts
                     from t in ts.DefaultIfEmpty()
 
                     join person in cxt.Person on p.PersonID equals person.PersonID
-                    select new PlayerAttendanceSummary()
+                    select new AttendanceSummary()
                     {
                         PlayerID = p.PlayerID,
                         AmountPaid = pa != null ? pa.AmountPaid : 0,
-                        AttendanceID = att != null ? att.AttendanceID : 0,
+                        SessionID = att != null ? att.SessionID : 0,
                         IsCasual = pa == null,
-                        PlayerAttendanceID = pa != null ? pa.PlayerAttendanceID : 0,
-                        HasAttended = pa != null && pa.PlayerAttendanceID > 0,
+                        AttendanceID = pa != null ? pa.AttendanceID : 0,
+                        HasAttended = pa != null && pa.AttendanceID > 0,
                         FirstName = person.FirstName,
                         LastName = person.LastName,
                         // These are left joins so if the player hasn't attended, use the termID provided...
@@ -118,18 +94,18 @@ namespace NFTB.Logic.DataManagers
                     }
                 ).ToList();
 
-                return data.Where(x => x.AttendanceID == attendanceID).ToList();
+                return data.Where(x => x.SessionID == attendanceID).ToList();
             }
         }
-        public List<PlayerAttendanceSummary> GetPlayerAttendances(int attendanceID)
+        public List<AttendanceSummary> GetAttendances(int sessionID)
         {
             // We will return a list of both players attended and not attended
             using (var cxt = DataStore.GetDataStore())
             {
-                //var playersAttended = cxt.PlayerAttendance.Where(x => x.AttendanceID == attendanceID);
+                //var playersAttended = cxt.PlayerAttendance.Where(x => x.SessionID == sessionID);
                 var data = (
-                    from pa in cxt.PlayerAttendance
-                    join att in cxt.Attendance on pa.AttendanceID equals att.AttendanceID
+                    from pa in cxt.Attendance
+                    join att in cxt.Session on pa.AttendanceID equals att.SessionID
                     join t in cxt.Term on att.TermID equals t.TermID
                     join p in cxt.Player on pa.PlayerID equals p.PlayerID
                     join person in cxt.Person on p.PersonID equals person.PersonID
@@ -137,15 +113,15 @@ namespace NFTB.Logic.DataManagers
                     join tp in cxt.TermPlayer on p.PlayerID equals tp.PlayerID into tps
                     from tp in tps.DefaultIfEmpty()
 
-                    where att.AttendanceID == attendanceID
+                    where att.SessionID == sessionID
 
-                    select new PlayerAttendanceSummary()
+                    select new AttendanceSummary()
                     {
                         PlayerID = p.PlayerID,
                         AmountPaid = pa.AmountPaid,
-                        AttendanceID = pa.AttendanceID,
+                        SessionID = pa.AttendanceID,
                         IsCasual = tp == null,
-                        PlayerAttendanceID = pa.PlayerAttendanceID,
+                        AttendanceID = pa.AttendanceID,
                         HasAttended = true,
                         FirstName = person.FirstName,
                         LastName = person.LastName,
@@ -184,73 +160,29 @@ namespace NFTB.Logic.DataManagers
         //    return null;
         //}
 
-        public AttendanceSummary GetAttendance(int attendanceID)
-        {
-            using (var cxt = DataStore.GetDataStore())
-            {
-                var attendance = cxt.Attendance.FirstOrDefault(x => x.AttendanceID == attendanceID);
-                return this.GetAttendances(attendanceID, attendance?.TermID).FirstOrDefault();
-            }
 
-        }
-
-        public void DeleteAttendance(int attendanceID)
-        {
-            using (var cxt = DataStore.GetDataStore())
-            {
-                var attendance = (from a in cxt.Attendance
-                                  where a.AttendanceID == attendanceID
-                                  select a
-                    ).FirstOrDefault();
-                if (attendance == null) return;
-                cxt.Attendance.DeleteObject(attendance);
-                cxt.SubmitChanges();
-            }
-        }
-
-        public AttendanceSummary SaveAttendance(AttendanceSummary attendance)
-        {
-            using (var cxt = DataStore.GetDataStore())
-            {
-                var data = cxt.GetOrCreateAttendance(attendance.AttendanceID);
-                if (data.IsNew)
-                {
-
-                    // TODO If there is no active term, throw error...
-                }
-                data.AttendanceDate = attendance.AttendanceDate;
-                data.TermID = attendance.TermID;
-                cxt.SubmitChanges();
-                //this.SavePlayerAttendances(data.AttendanceID, attendance.PlayerAttendances);
-
-                return this.GetAttendance(data.AttendanceID);
-            }
-        }
-
-
-
-        //private List<PlayerAttendanceSummary> SavePlayerAttendances(int attendanceID, List<PlayerAttendanceSummary> playerAttendances)
+        //private List<SessionSummary> SavePlayerAttendances(int sessionID, List<SessionSummary> playerAttendances)
         //{
         //    // We will get the current player attendances first so we can delete the ones not passed in...
-        //    var attendancesToBeRemoved = this.GetEmptyPlayerAttendances(attendanceID);
-        //    if (attendancesToBeRemoved == null) throw new UserException("Cannot find player attendances for the attendance");
+        //    var attendancesToBeRemoved = this.GetEmptyPlayerAttendances(sessionID);
+        //    if (attendancesToBeRemoved == null) throw new UserException("Cannot find player attendances for the session");
 
 
 
-        //    // Create the PlayerAttendanceSummary items
+        //    // Create the SessionSummary items
 
 
         //    using (var cxt = DataStore.GetDataStore())
         //    {
-        //        foreach (var attendance in playerAttendances)
+        //        foreach (var session in playerAttendances)
         //        {
         //            // Remove from current attendances
-        //            attendancesToBeRemoved.RemoveAll(x => x.PlayerID == attendance.PlayerID);
+        //            attendancesToBeRemoved.RemoveAll(x => x.PlayerID == session.PlayerID);
 
-        //            var data = cxt.GetOrCreatePlayerAttendance(attendance.PlayerAttendanceID);
-        //            data.AmountPaid = attendance.AmountPaid;
-        //            data.PlayerID = attendance.PlayerID;
-        //            data.AttendanceID = attendanceID;
+        //            var data = cxt.GetOrCreatePlayerAttendance(session.SessionID);
+        //            data.AmountPaid = session.AmountPaid;
+        //            data.PlayerID = session.PlayerID;
+        //            data.SessionID = sessionID;
         //            cxt.SubmitChanges();
         //        }
 
@@ -260,12 +192,12 @@ namespace NFTB.Logic.DataManagers
         //    return null;
         //}
 
-        public PlayerAttendanceSummary SavePlayerAttendance(int attendanceID, int playerID, decimal amountPaid)
+        public AttendanceSummary SaveAttendance(int attendanceID, int playerID, decimal amountPaid)
         {
             using (var cxt = DataStore.GetDataStore())
             {
-                var playerAttendance = cxt.PlayerAttendance.FirstOrDefault(x => x.AttendanceID == attendanceID && x.PlayerID == playerID);
-                var pa = cxt.GetOrCreatePlayerAttendance(playerAttendance?.PlayerAttendanceID);
+                var playerAttendance = cxt.Attendance.FirstOrDefault(x => x.AttendanceID == attendanceID && x.PlayerID == playerID);
+                var pa = cxt.GetOrCreateAttendance(playerAttendance?.AttendanceID);
                 if (pa.IsNew)
                 {
                     pa.AttendanceID = attendanceID;
@@ -273,31 +205,31 @@ namespace NFTB.Logic.DataManagers
                     pa.AmountPaid = amountPaid;
                 }
                 cxt.SaveChanges();
-                return this.GetPlayerAttendances(pa.AttendanceID).FirstOrDefault(x => x.PlayerID == pa.PlayerID);
+                return this.GetAttendances(pa.AttendanceID).FirstOrDefault(x => x.PlayerID == pa.PlayerID);
             }
         }
 
-        public void DeletePlayerAttendance(int playerAttendanceID)
+        public void DeleteAttendance(int attendanceID)
         {
             using (var cxt = DataStore.GetDataStore())
             {
-                var pa = cxt.PlayerAttendance.FirstOrDefault(x => x.PlayerAttendanceID == playerAttendanceID);
+                var pa = cxt.Attendance.FirstOrDefault(x => x.AttendanceID == attendanceID);
                 if (pa == null) return;
-                cxt.PlayerAttendance.DeleteObject(pa);
+                cxt.Attendance.DeleteObject(pa);
                 cxt.SubmitChanges();
             }
         }
 
-        private void DeletePlayerAttendances(List<PlayerAttendanceSummary> attendances)
+        private void DeletePlayerAttendances(List<AttendanceSummary> attendances)
         {
             using (var cxt = DataStore.GetDataStore())
             {
-                // EO TODO We should do this bulk rather than calling per attendance
+                // EO TODO We should do this bulk rather than calling per session
                 foreach (var attendance in attendances)
                 {
-                    var data = cxt.PlayerAttendance.FirstOrDefault(x => x.PlayerID == attendance.PlayerID && x.AttendanceID == attendance.AttendanceID);
+                    var data = cxt.Attendance.FirstOrDefault(x => x.PlayerID == attendance.PlayerID && x.AttendanceID == attendance.SessionID);
                     if (data == null) continue;
-                    cxt.PlayerAttendance.DeleteObject(data);
+                    cxt.Attendance.DeleteObject(data);
                     cxt.SubmitChanges();
                 }
             }

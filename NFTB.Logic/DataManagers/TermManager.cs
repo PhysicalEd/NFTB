@@ -98,10 +98,10 @@ namespace NFTB.Logic.DataManagers
                 // We will check to see if there are attendances associated with the term. If there
                 // is, do not save.
 
-                var attendances = cxt.Attendance.Where(x => x.TermID == termID);
+                var attendances = cxt.Session.Where(x => x.TermID == termID);
                 if (attendances.Any())
                 {
-                    var lastAttendanceDate = attendances.OrderByDescending(x => x.AttendanceDate).FirstOrDefault()?.AttendanceDate;
+                    var lastAttendanceDate = attendances.OrderByDescending(x => x.Date).FirstOrDefault()?.Date;
                     if (termEnd <= lastAttendanceDate) throw new UserException("This term have attendances in them. Please make sure that the end date is later than the latest attendance date");
                     term.TermName = termName;
                     term.TermEnd = termEnd;
@@ -155,7 +155,7 @@ namespace NFTB.Logic.DataManagers
 
                 // If there are existing attendances, we simply mark the term deleted, if not, we can delete altogether
 
-                var attendances = cxt.Attendance.Where(x => x.TermID == term.TermID);
+                var attendances = cxt.Session.Where(x => x.TermID == term.TermID);
                 var termPlayer = cxt.TermPlayer.Where(x=>x.TermID == term.TermID);
                 if (attendances.Any() || termPlayer.Any())
                 {

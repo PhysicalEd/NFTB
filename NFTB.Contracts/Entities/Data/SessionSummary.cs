@@ -6,16 +6,16 @@ using System.Text;
 
 namespace NFTB.Contracts.Entities.Data
 {
-	public class AttendanceSummary
+	public class SessionSummary
 	{
-        public int AttendanceID { get; set; }
+        public int SessionID { get; set; }
         public int TermID { get; set; }
         public int CasualsRate { get; set; }
         public string TermName { get; set; }
-	    public List<PlayerAttendanceSummary> PlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
+	    public List<AttendanceSummary> PlayerAttendances { get; set; } = new List<AttendanceSummary>();
 
-        public List<PlayerAttendanceSummary> TermPlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
-        public List<PlayerAttendanceSummary> CasualPlayerAttendances { get; set; } = new List<PlayerAttendanceSummary>();
+        public List<AttendanceSummary> TermPlayerAttendances { get; set; } = new List<AttendanceSummary>();
+        public List<AttendanceSummary> CasualPlayerAttendances { get; set; } = new List<AttendanceSummary>();
 	    public int TotalPlayersAttended => this.TermPlayerAttendances.Count;
 	    public int CasualsAttended => this.CasualPlayerAttendances.Count;
 	    public int TermPlayersAttended => this.TermPlayerAttendances.Count;

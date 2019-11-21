@@ -94,7 +94,7 @@ namespace NFTB.Logic.DataManagers
 
                 // Check if this player has been either marked as a term player before or has been marked in attendances
                 var hasBeenAAtermPlayerBefore = cxt.TermPlayer.Any(x => x.PlayerID == player.PlayerID);
-                var hasAttendances = cxt.PlayerAttendance.Any(x => x.PlayerID == playerID);
+                var hasAttendances = cxt.Attendance.Any(x => x.PlayerID == playerID);
 
                 if (hasBeenAAtermPlayerBefore || hasAttendances)
                 {

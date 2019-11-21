@@ -5,7 +5,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 8 Oct 2018 
+// Code Generation Template developed by Ben Liebert, 28 Jun 2019 
 namespace NFTB.Data.EF.Fake {
 
 	/// <summary>
@@ -21,7 +21,7 @@ namespace NFTB.Data.EF.Fake {
 			this.Login.Where(x => x.LoginID == 0).ToList().ForEach(x => x.LoginID = this.Login.Max(y => y.LoginID) + 1);
 			this.Person.Where(x => x.PersonID == 0).ToList().ForEach(x => x.PersonID = this.Person.Max(y => y.PersonID) + 1);
 			this.Player.Where(x => x.PlayerID == 0).ToList().ForEach(x => x.PlayerID = this.Player.Max(y => y.PlayerID) + 1);
-			this.PlayerAttendance.Where(x => x.PlayerAttendanceID == 0).ToList().ForEach(x => x.PlayerAttendanceID = this.PlayerAttendance.Max(y => y.PlayerAttendanceID) + 1);
+			this.Session.Where(x => x.SessionID == 0).ToList().ForEach(x => x.SessionID = this.Session.Max(y => y.SessionID) + 1);
 			this.SystemLog.Where(x => x.SystemLogID == 0).ToList().ForEach(x => x.SystemLogID = this.SystemLog.Max(y => y.SystemLogID) + 1);
 			this.Term.Where(x => x.TermID == 0).ToList().ForEach(x => x.TermID = this.Term.Max(y => y.TermID) + 1);
 			this.TermPlayer.Where(x => x.TermPlayerID == 0).ToList().ForEach(x => x.TermPlayerID = this.TermPlayer.Max(y => y.TermPlayerID) + 1);
@@ -127,23 +127,23 @@ namespace NFTB.Data.EF.Fake {
             }
         }
 	
-		public PlayerAttendance GetOrCreatePlayerAttendance(int? PlayerAttendanceID) {
-            PlayerAttendance item = this.PlayerAttendance.FirstOrDefault(x => x.PlayerAttendanceID == PlayerAttendanceID);
+		public Session GetOrCreateSession(int? SessionID) {
+            Session item = this.Session.FirstOrDefault(x => x.SessionID == SessionID);
 			if (item == null){
-				item = new PlayerAttendance();
-				this.PlayerAttendance.AddObject(item);
+				item = new Session();
+				this.Session.AddObject(item);
 			}
 			return item;
         }
 
-		private IObjectSet<PlayerAttendance> _PlayerAttendance = null;
-        public IObjectSet<PlayerAttendance> PlayerAttendance {
+		private IObjectSet<Session> _Session = null;
+        public IObjectSet<Session> Session {
             get {
-                if (_PlayerAttendance == null) {
-                    var result = new List<PlayerAttendance>();
-                    _PlayerAttendance = new FakeObjectSet<PlayerAttendance>(result);
+                if (_Session == null) {
+                    var result = new List<Session>();
+                    _Session = new FakeObjectSet<Session>(result);
                 }
-                return _PlayerAttendance;
+                return _Session;
             }
         }
 	

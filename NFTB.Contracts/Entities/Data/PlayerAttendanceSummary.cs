@@ -5,10 +5,10 @@ using System.Text;
 
 namespace NFTB.Contracts.Entities.Data
 {
-	public class PlayerAttendanceSummary
+	public class AttendanceSummary
 	{
-	    public int PlayerAttendanceID { get; set; }
-        public int AttendanceID { get; set; }
+	    public int AttendanceID { get; set; }
+        public int SessionID { get; set; }
         public int? TermID { get; set; }
         public int PlayerID { get; set; }
         public bool IsCasual { get; set; }

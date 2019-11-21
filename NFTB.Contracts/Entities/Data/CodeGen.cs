@@ -8,7 +8,7 @@ using System.Text;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 8 Oct 2018 
+// Code Generation Template developed by Ben Liebert, 28 Jun 2019 
 namespace NFTB.Contracts.Entities.Data {
 
 	/// <summary>
@@ -17,9 +17,9 @@ namespace NFTB.Contracts.Entities.Data {
 	public partial class Attendance
 	{
 		public int AttendanceID { get; set; }
-		public int TermID { get; set; }
-		public DateTime AttendanceDate { get; set; }
-		public bool IsDisabled { get; set; }
+		public int SessionID { get; set; }
+		public int PlayerID { get; set; }
+		public decimal AmountPaid { get; set; }
 		public bool IsNew { get { return (this.AttendanceID == 0); } }
 	}
 		
@@ -76,15 +76,15 @@ namespace NFTB.Contracts.Entities.Data {
 	}
 		
 	/// <summary>
-	/// Interface of our generic PlayerAttendance object
+	/// Interface of our generic Session object
 	/// </summary>
-	public partial class PlayerAttendance
+	public partial class Session
 	{
-		public int PlayerAttendanceID { get; set; }
-		public int AttendanceID { get; set; }
-		public int PlayerID { get; set; }
-		public decimal AmountPaid { get; set; }
-		public bool IsNew { get { return (this.PlayerAttendanceID == 0); } }
+		public int SessionID { get; set; }
+		public int TermID { get; set; }
+		public DateTime Date { get; set; }
+		public bool IsDisabled { get; set; }
+		public bool IsNew { get { return (this.SessionID == 0); } }
 	}
 		
 	/// <summary>

@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="AppSettingsRetriever.cs" />
     <Compile Include="DataManagers\AttendanceManager.cs" />
+    <Compile Include="DataManagers\SessionManager.cs" />
     <Compile Include="DataManagers\AccountManager.cs" />
     <Compile Include="DataManagers\PlayerManager.cs" />
     <Compile Include="DataManagers\TermManager.cs" />

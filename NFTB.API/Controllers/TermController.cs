@@ -16,7 +16,7 @@ namespace NFTB.API.Controllers
 
     public class TermController : ApiController
     {
-        [Route("termlist")]
+        [Route("terms")]
         [HttpGet]
         public TermListModel TermList(TermListFilters filters)
         {
@@ -25,7 +25,7 @@ namespace NFTB.API.Controllers
             return model;
         }
 
-        [Route("termlist/{termID}")]
+        [Route("terms/{termID}")]
         [HttpGet]
         public TermSummary TermDetails(int? termID)
         {
@@ -33,14 +33,14 @@ namespace NFTB.API.Controllers
             return term;
         }
 
-        [Route("termlist/{termID}")]
+        [Route("terms/{termID}")]
         [HttpDelete]
         public void DeleteTerm(int termID)
         {
             Dependency.Resolve<ITermManager>().DeleteTerm(termID);
         }
 
-        [Route("termlist")]
+        [Route("terms")]
         [HttpPost]
         public TermSummary SaveTerm([FromBody]TermSummary term)
         {
@@ -49,7 +49,7 @@ namespace NFTB.API.Controllers
             return termMgr.SaveTerm(term.TermID, term.TermName, term.TermStart, term.TermEnd, term.BondAmount, term.CasualRate, term.IncludeOrganizer, null);
         }
 
-        [Route("termlist/{termID}")]
+        [Route("terms/{termID}")]
         [HttpPut]
         public TermSummary SaveTerm(int termID, [FromBody]TermSummary term)
         {
@@ -92,19 +92,19 @@ namespace NFTB.API.Controllers
 
         //    var termMgr = Dependency.Resolve<ITermManager>();
         //    var playerMgr = Dependency.Resolve<IPlayerManager>();
-        //    var attendanceMgr = Dependency.Resolve<IAttendanceManager>();
+        //    var attendanceMgr = Dependency.Resolve<ISessionManager>();
 
         //    model.Term = termMgr.GetTerm(termID);
         //    model.TermPlayers = playerMgr.GetPlayers(null, null);
         //    model.Invoice = termMgr.GetInvoiceByTerm(termID);
-        //    model.Attendances = attendanceMgr.GetAttendances(null, termID);
+        //    model.Attendances = attendanceMgr.GetSessions(null, termID);
 
         //    if (model.Attendances.Any())
         //    {
         //        foreach (var attendance in model.Attendances)
         //        {
-        //            attendance.PlayerAttendances = attendanceMgr.GetPlayerAttendances(attendance.AttendanceID);
-        //            attendance.CasualPlayerAttendances = attendance.PlayerAttendances.Where(x => x.IsCasual).ToList();
+        //            attendance.Attendances = attendanceMgr.GetAttendances(attendance.SessionID);
+        //            attendance.CasualPlayerAttendances = attendance.Attendances.Where(x => x.IsCasual).ToList();
                     
         //            //attendance.ActualAmountFromCasuals = attendance.CasualsAttended * attendance.CasualPlayerAttendances.Sum(x=>x.AmountPaid);
         //            //attendance.ExpectedAmountFromCasuals = attendance.CasualsAttended * attendance.CasualsRate;

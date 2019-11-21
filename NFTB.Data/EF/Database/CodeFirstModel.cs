@@ -15,9 +15,6 @@ using System.Text;
 using NFTB.Contracts.Repositories;
 using NFTB.Contracts.Entities;
 using NFTB.Contracts.Entities.Data;
-using NFTB.Contracts.Entities.Data;
-using NFTB.Contracts.Repositories;
-using NFTB.Contracts.Entities.Data;
 
 namespace NFTB.Data.EF.Database
 {

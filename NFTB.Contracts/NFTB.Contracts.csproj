@@ -86,6 +86,7 @@
     <Compile Include="Cache\IPersistentStorage.cs" />
     <Compile Include="DataManagers\CodeGen.cs" />
     <Compile Include="DataManagers\IAttendanceManager.cs" />
+    <Compile Include="DataManagers\ISessionManager.cs" />
     <Compile Include="DataManagers\IAccountManager.cs" />
     <Compile Include="DataManagers\IPlayerManager.cs" />
     <Compile Include="DataManagers\ITermManager.cs" />
@@ -93,7 +94,7 @@
     <Compile Include="DataManagers\ISystemLogManager.cs" />
     <Compile Include="Entities\Data\PlayerAttendanceSummary.cs" />
     <Compile Include="Entities\Data\CodeGen.cs" />
-    <Compile Include="Entities\Data\AttendanceSummary.cs" />
+    <Compile Include="Entities\Data\SessionSummary.cs" />
     <Compile Include="Entities\Data\LoginSummary.cs" />
     <Compile Include="Entities\Data\RegistrationSummary.cs" />
     <Compile Include="Entities\Data\TermPlayerSummary.cs" />

@@ -15,7 +15,7 @@ namespace NFTB.API.Controllers
     [RoutePrefix("api/player")]
     public class PlayerController : Basecontroller
     {
-        [Route("playerlist")]
+        [Route("players")]
         [HttpGet]
         public PlayerListModel PlayerList()
         {
@@ -24,7 +24,7 @@ namespace NFTB.API.Controllers
             return model;
         }
 
-        [Route("playerlist/{playerid}")]
+        [Route("players/{playerid}")]
         [HttpGet]
         public PlayerSummary PlayerDetails(int playerID)
         {
@@ -41,7 +41,7 @@ namespace NFTB.API.Controllers
         //    return player;
         //}
 
-        [Route("playerlist")]
+        [Route("players")]
         [HttpPost]
         public PlayerSummary SavePlayer([FromBody]PlayerSummary player)
         {
@@ -50,7 +50,7 @@ namespace NFTB.API.Controllers
             return playerMgr.SavePlayer(player.PlayerID, player.FirstName, player.LastName, player.Phone, player.Email);
         }
 
-        [Route("playerlist/{playerID}")]
+        [Route("players/{playerID}")]
         [HttpPut]
         public PlayerSummary SavePlayer(int playerID, [FromBody]PlayerSummary player)
         {
@@ -61,7 +61,7 @@ namespace NFTB.API.Controllers
             return this.SavePlayer(player);
         }
 
-        [Route("playerlist/{playerID}")]
+        [Route("players/{playerID}")]
         [HttpDelete]
         public void DeletePlayer(int playerID)
         {

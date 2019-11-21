@@ -6,7 +6,7 @@ using NFTB.Contracts.Entities.Data;
 
 // CAUTION - AUTOMATICALLY GENERATED
 // These classes have been automatically generated from the core database. Use partial classes to create custom properties
-// Code Generation Template developed by Ben Liebert, 8 Oct 2018 
+// Code Generation Template developed by Ben Liebert, 28 Jun 2019 
 namespace NFTB.Data.EF.Database {
 
 	/// <summary>
@@ -22,9 +22,9 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Attendance>().HasKey(x => x.AttendanceID);
 			modelBuilder.Entity<Attendance>().ToTable("Attendance");
 			modelBuilder.Entity<Attendance>().Property(x => x.AttendanceID);
-			modelBuilder.Entity<Attendance>().Property(x => x.TermID);
-			modelBuilder.Entity<Attendance>().Property(x => x.AttendanceDate);
-			modelBuilder.Entity<Attendance>().Property(x => x.IsDisabled);
+			modelBuilder.Entity<Attendance>().Property(x => x.SessionID);
+			modelBuilder.Entity<Attendance>().Property(x => x.PlayerID);
+			modelBuilder.Entity<Attendance>().Property(x => x.AmountPaid);
 		
 			// Invoice
 			modelBuilder.Entity<Invoice>().HasKey(x => x.InvoiceID);
@@ -62,13 +62,13 @@ namespace NFTB.Data.EF.Database {
 			modelBuilder.Entity<Player>().Property(x => x.PersonID);
 			modelBuilder.Entity<Player>().Property(x => x.IsDeleted);
 		
-			// PlayerAttendance
-			modelBuilder.Entity<PlayerAttendance>().HasKey(x => x.PlayerAttendanceID);
-			modelBuilder.Entity<PlayerAttendance>().ToTable("PlayerAttendance");
-			modelBuilder.Entity<PlayerAttendance>().Property(x => x.PlayerAttendanceID);
-			modelBuilder.Entity<PlayerAttendance>().Property(x => x.AttendanceID);
-			modelBuilder.Entity<PlayerAttendance>().Property(x => x.PlayerID);
-			modelBuilder.Entity<PlayerAttendance>().Property(x => x.AmountPaid);
+			// Session
+			modelBuilder.Entity<Session>().HasKey(x => x.SessionID);
+			modelBuilder.Entity<Session>().ToTable("Session");
+			modelBuilder.Entity<Session>().Property(x => x.SessionID);
+			modelBuilder.Entity<Session>().Property(x => x.TermID);
+			modelBuilder.Entity<Session>().Property(x => x.Date);
+			modelBuilder.Entity<Session>().Property(x => x.IsDisabled);
 		
 			// SystemLog
 			modelBuilder.Entity<SystemLog>().HasKey(x => x.SystemLogID);
@@ -190,17 +190,17 @@ namespace NFTB.Data.EF.Database {
         }
 	
 
-        public PlayerAttendance GetOrCreatePlayerAttendance(int? PlayerAttendanceID) {
-            if (PlayerAttendanceID.GetValueOrDefault(0) > 0) return this.PlayerAttendance.FirstOrDefault(x => x.PlayerAttendanceID == PlayerAttendanceID);
-            var newItem = new PlayerAttendance();
-			this.PlayerAttendance.AddObject(newItem);
+        public Session GetOrCreateSession(int? SessionID) {
+            if (SessionID.GetValueOrDefault(0) > 0) return this.Session.FirstOrDefault(x => x.SessionID == SessionID);
+            var newItem = new Session();
+			this.Session.AddObject(newItem);
             return newItem;
         }
 
-		public IObjectSet<NFTB.Contracts.Entities.Data.PlayerAttendance> PlayerAttendance        {
+		public IObjectSet<NFTB.Contracts.Entities.Data.Session> Session        {
             get { 
-				return Core.CreateObjectSet<PlayerAttendance>();
-				// var set = Core.CreateObjectSet<PlayerAttendance>();
+				return Core.CreateObjectSet<Session>();
+				// var set = Core.CreateObjectSet<Session>();
 	            // set.MergeOption = MergeOption.NoTracking;
 	            // return set;
 			}
